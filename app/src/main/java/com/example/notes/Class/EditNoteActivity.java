@@ -97,7 +97,7 @@ public class EditNoteActivity extends AppCompatActivity {
 
         Intent resultIntent = new Intent();
         resultIntent.putExtra("note_updated", true);
-        setResult(RESULT_OK, resultIntent);
+//        setResult(RESULT_OK, resultIntent);
         finish();
     }
 
