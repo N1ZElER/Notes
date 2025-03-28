@@ -1,0 +1,36 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/folderName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="17sp"
+        android:background="@drawable/rounded_folder_background"
+        android:gravity="left"
+        android:paddingEnd="20dp"
+        android:padding="12dp"/>
+
+    <ImageView
+        android:id="@+id/pinnedIcon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_toStartOf="@id/folderBox"
+        android:layout_alignTop="@id/folderBox"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/ic_pin"
+        android:visibility="gone" />
+
+    <CheckBox
+        android:id="@+id/folderBox"
+        android:layout_width="40dp"
+        android:layout_height="35dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"/>
+
+
+</RelativeLayout>

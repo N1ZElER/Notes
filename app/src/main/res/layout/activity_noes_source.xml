@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:padding="16dp">
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end">
+
+<!--        <ImageButton-->
+<!--            android:id="@+id/addNotes"-->
+<!--            android:layout_width="48dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:background="@null"-->
+<!--            android:padding="15dp"-->
+<!--            android:src="@drawable/baseline_add_24"-->
+<!--            android:contentDescription="Сохранить заметку"-->
+<!--            app:tint="#000000" />-->
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/sigmentNotes"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:background="@null"
+            android:src="@drawable/round_segment_24" />
+
+    </LinearLayout>
+
+
+    <EditText
+        android:id="@+id/noteTitle"
+        android:layout_width="match_parent"
+        android:textCursorDrawable="@drawable/cursor_color"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:background="@null"
+        android:inputType="text"
+        android:hint="Название"
+        android:maxLines="1" />
+
+    <EditText
+        android:id="@+id/noteContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:hint="Текст"
+        android:gravity="top"
+        android:inputType="textMultiLine"
+        android:textColor="@color/abc_primary_text_material_light"
+        android:textCursorDrawable="@drawable/cursor_color"
+        android:textSize="18sp" />
+</LinearLayout>
