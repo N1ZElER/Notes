@@ -120,7 +120,7 @@ public class EditNoteActivity extends AppCompatActivity {
 
                     runOnUiThread(() -> {
                         noteAdapter.setNotes(updatedNotes); // Обновляем адаптер
-                        Log.d("EditNoteActivity", "Заметка обновлена и UI перерисован");
+                        Log.d("EditNoteActivity", "Заметка обновлена и UI обновлен");
                     });
                 }).start();
             }

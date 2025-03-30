@@ -66,7 +66,7 @@ public interface NoteDao {
 //    List<Note> getAllActiveNotes();
 
     @Query("SELECT * FROM notes WHERE isDeleted = 1")
-    List<Note> getDeletedNotes();
+    LiveData<List<Note>> getDeletedNotes();
 
     @Query("UPDATE notes SET isDeleted = 1 WHERE id = :noteId")
     void moveToTrash(int noteId);

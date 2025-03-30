@@ -86,6 +86,19 @@ public class Delete extends AppCompatActivity {
         loadDeletedNotes();
 
 
+        // Cледим за переносом заметки
+        NoteDatabase.getInstance(getApplicationContext())
+                .noteDao()
+                .getDeletedNotes()
+                .observe(this, notes -> {
+                    recentlyDeletedNotes.clear();
+                    recentlyDeletedNotes.addAll(notes);
+                    noteAdapter.setNotes(recentlyDeletedNotes);
+                    noteAdapter.notifyDataSetChanged();
+                    updateNotesCount(recentlyDeletedNotes.size());
+                });
+
+
 
 
         navigationView.setNavigationItemSelectedListener(item -> {
@@ -206,16 +219,16 @@ public class Delete extends AppCompatActivity {
 
 
     private void loadDeletedNotes() {
-        AsyncTask.execute(() -> {
-            List<Note> deletedNotes = NoteDatabase.getInstance(getApplicationContext())
-                    .noteDao()
-                    .getDeletedNotes();
-
-            runOnUiThread(() -> {
-                recentlyDeletedNotes.clear();
-                recentlyDeletedNotes.addAll(deletedNotes);
-                noteAdapter.notifyDataSetChanged();
-            });
-        });
+        NoteDatabase.getInstance(getApplicationContext())
+                .noteDao()
+                .getDeletedNotes()
+                .observe(this, deletedNotes -> {
+                    recentlyDeletedNotes.clear();
+                    recentlyDeletedNotes.addAll(deletedNotes);
+                    noteAdapter.setNotes(recentlyDeletedNotes);
+                    noteAdapter.notifyDataSetChanged();
+                    updateNotesCount(recentlyDeletedNotes.size());
+                });
     }
+
 }
