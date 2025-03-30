@@ -97,12 +97,12 @@ public class Settings extends AppCompatActivity {
 
         navigationView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
-            drawer_layout.closeDrawers();
 
             if (id == R.id.nav_settings) {
-                return true;
+                drawer_layout.closeDrawers();
             } else if (id == R.id.nav_home) {
-                finish();
+                Intent intent = new Intent(Settings.this, MainActivity.class);
+                startActivity(intent);
             } else if (id == R.id.nav_ozevs) {
                 Toast.makeText(Settings.this, "Cкоро", Toast.LENGTH_SHORT).show();
             } else if (id == R.id.nav_folder) {
@@ -110,14 +110,11 @@ public class Settings extends AppCompatActivity {
             } else if (id == R.id.nav_arhive) {
                 Toast.makeText(Settings.this, "Пока в доработке", Toast.LENGTH_SHORT).show();
             } else if (id == R.id.nav_dell){
-                if (!isTaskRoot()) {
-                    onBackPressed();
-                } else {
-                    Intent intent = new Intent(Settings.this, Delete.class);
-                    startActivity(intent);
-                }
+                Intent intent = new Intent(Settings.this, Delete.class);
+                startActivity(intent);
             }
 
+            drawer_layout.closeDrawers();
             return true;
         });
 

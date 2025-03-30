@@ -86,17 +86,17 @@ public class Delete extends AppCompatActivity {
         loadDeletedNotes();
 
 
-        // Cледим за переносом заметки
-        NoteDatabase.getInstance(getApplicationContext())
-                .noteDao()
-                .getDeletedNotes()
-                .observe(this, notes -> {
-                    recentlyDeletedNotes.clear();
-                    recentlyDeletedNotes.addAll(notes);
-                    noteAdapter.setNotes(recentlyDeletedNotes);
-                    noteAdapter.notifyDataSetChanged();
-                    updateNotesCount(recentlyDeletedNotes.size());
-                });
+//        // Cледим за переносом заметки
+//        NoteDatabase.getInstance(getApplicationContext())
+//                .noteDao()
+//                .getDeletedNotes()
+//                .observe(this, notes -> {
+//                    recentlyDeletedNotes.clear();
+//                    recentlyDeletedNotes.addAll(notes);
+//                    noteAdapter.setNotes(recentlyDeletedNotes);
+//                    noteAdapter.notifyDataSetChanged();
+//                    updateNotesCount(recentlyDeletedNotes.size());
+//                });
 
 
 
@@ -219,6 +219,7 @@ public class Delete extends AppCompatActivity {
 
 
     private void loadDeletedNotes() {
+        //следим за удалением заметки
         NoteDatabase.getInstance(getApplicationContext())
                 .noteDao()
                 .getDeletedNotes()
@@ -230,5 +231,4 @@ public class Delete extends AppCompatActivity {
                     updateNotesCount(recentlyDeletedNotes.size());
                 });
     }
-
 }
