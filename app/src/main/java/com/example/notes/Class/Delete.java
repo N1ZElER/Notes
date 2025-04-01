@@ -17,11 +17,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,7 +40,7 @@ import java.util.List;
 
 public class Delete extends AppCompatActivity {
 
-    private TextView title, text, countNotes;
+    private TextView  countNotes;
     private NoteAdapter noteAdapter;
     private SearchView searchView;
     private List<Note> notes = new ArrayList<>();
@@ -48,10 +51,6 @@ public class Delete extends AppCompatActivity {
     private static List<Note> recentlyDeletedNotes = new ArrayList<>();
 
 
-
-
-
-
     private BroadcastReceiver updateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -60,15 +59,12 @@ public class Delete extends AppCompatActivity {
     };
 
 
-
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delete);
 
-        title = findViewById(R.id.title);
-        text = findViewById(R.id.text);
         searchView = findViewById(R.id.searchView);
         sigment = findViewById(R.id.sigment);
         navigationView = findViewById(R.id.navigationView);
@@ -77,28 +73,12 @@ public class Delete extends AppCompatActivity {
         notesRecyclerView = findViewById(R.id.notesRecyclerView);
 
 
-
         noteAdapter = new NoteAdapter(notes, this);
         notesRecyclerView.setAdapter(noteAdapter);
         notesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         noteAdapter.setOnNoteCountChangeListener(this::updateNotesCount);
 
         loadDeletedNotes();
-
-
-//        // Cледим за переносом заметки
-//        NoteDatabase.getInstance(getApplicationContext())
-//                .noteDao()
-//                .getDeletedNotes()
-//                .observe(this, notes -> {
-//                    recentlyDeletedNotes.clear();
-//                    recentlyDeletedNotes.addAll(notes);
-//                    noteAdapter.setNotes(recentlyDeletedNotes);
-//                    noteAdapter.notifyDataSetChanged();
-//                    updateNotesCount(recentlyDeletedNotes.size());
-//                });
-
-
 
 
         navigationView.setNavigationItemSelectedListener(item -> {
@@ -115,7 +95,7 @@ public class Delete extends AppCompatActivity {
                 startActivity(new Intent(Delete.this, FileActivity.class));
             } else if (id == R.id.nav_arhive) {
                 Toast.makeText(Delete.this, getString(R.string.in_development), Toast.LENGTH_SHORT).show();
-            } else if (id == R.id.nav_dell){
+            } else if (id == R.id.nav_dell) {
                 drawerLayout.closeDrawers();
             }
             drawerLayout.closeDrawers();
@@ -142,10 +122,6 @@ public class Delete extends AppCompatActivity {
         });
 
 
-
-
-
-
         if (getIntent().hasExtra("deleted_note")) {
             Note deletedNote = getIntent().getParcelableExtra("deleted_note");
             if (deletedNote != null) {
@@ -162,10 +138,37 @@ public class Delete extends AppCompatActivity {
         }
 
 
-
-
-
         updateNotesCount(notes.size());
+
+
+        ItemTouchHelper itemTouchHelperMove = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
+                ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.LEFT | 0) { // Разрешаем двигать вверх и вниз
+
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView,
+                                  @NonNull RecyclerView.ViewHolder viewHolder,
+                                  @NonNull RecyclerView.ViewHolder target) {
+                int fromPosition = viewHolder.getAdapterPosition();
+                int toPosition = target.getAdapterPosition();
+
+                noteAdapter.moveItem(fromPosition, toPosition);
+                return true;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                int position = viewHolder.getAdapterPosition();
+                noteAdapter.showDeleteDialog(position);
+            }
+
+
+            @Override
+            public boolean isLongPressDragEnabled() {
+                return true;  // перетаскивания долгим зажатием
+            }
+        });
+
+        itemTouchHelperMove.attachToRecyclerView(notesRecyclerView);
     }
 
 
@@ -219,7 +222,7 @@ public class Delete extends AppCompatActivity {
 
 
     private void loadDeletedNotes() {
-        //следим за удалением заметки
+        //следим за удаленной заметкой и обновляем ее в бд
         NoteDatabase.getInstance(getApplicationContext())
                 .noteDao()
                 .getDeletedNotes()
@@ -231,4 +234,7 @@ public class Delete extends AppCompatActivity {
                     updateNotesCount(recentlyDeletedNotes.size());
                 });
     }
+
+
+
 }

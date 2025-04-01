@@ -16,12 +16,6 @@
             android:name=".RecentlyDeletedNote"
             android:exported="false" />
         <activity
-            android:name=".RecentlyDeletedNoteAdapter"
-            android:exported="false" />
-        <activity
-            android:name=".RecentlyDeletedNoteDao"
-            android:exported="false" />
-        <activity
             android:name=".Class.Delete"
             android:exported="false" />
         <activity
@@ -31,13 +25,7 @@
             android:name=".Class.SpravkaAndOzevs"
             android:exported="false" />
         <activity
-            android:name=".EditNoteViewModel"
-            android:exported="false" />
-        <activity
             android:name=".Class.Settings"
-            android:exported="false" />
-        <activity
-            android:name=".Class.FolderItemActivity"
             android:exported="false" />
         <activity
             android:name=".FolderDao"
@@ -55,9 +43,6 @@
             android:name=".Class.EditNoteActivity"
             android:exported="false" />
         <activity
-            android:name=".Class.note_item"
-            android:exported="false" />
-        <activity
             android:name=".Adapter.NoteAdapter"
             android:exported="false" />
         <activity
@@ -65,9 +50,6 @@
             android:exported="false" />
         <activity
             android:name=".NoteDao"
-            android:exported="false" />
-        <activity
-            android:name=".DataAccessObject"
             android:exported="false" />
         <activity
             android:name=".Note"

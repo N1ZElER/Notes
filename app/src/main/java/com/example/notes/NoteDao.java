@@ -70,4 +70,7 @@ public interface NoteDao {
 
     @Query("UPDATE notes SET isDeleted = 1 WHERE id = :noteId")
     void moveToTrash(int noteId);
+
+    @Query("UPDATE notes SET isDeleted = 0 WHERE id = :noteId")
+    void restoreNote(int noteId);
 }

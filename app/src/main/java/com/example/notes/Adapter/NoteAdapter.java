@@ -2,6 +2,7 @@ package com.example.notes.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.util.Log;
 import android.view.Gravity;
@@ -45,6 +46,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     private OnNoteClickListener onNoteClickListener;
     private OnNoteCountChangeListener noteCountChangeListener;
     private Set<Integer> selectedNotes = new HashSet<>(); // id выделенных заметок
+
+    private static List<Note> recentlyDeletedNotes = new ArrayList<>();
     public NoteAdapter(List<Note> notes, Context context) {
         this.context = context;
     }
@@ -161,6 +164,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
 
 
+
+
     public void setNotes(List<Note> notes) {
         if (notes != null) {
             this.notes.clear();
@@ -175,24 +180,76 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         notifyDataSetChanged();
     }
 
-// НЕ УДАЛЯТЬ
-//    private void removeNoteAt(int position) {
-//        if (position < 0 || position >= filterdNotes.size()) return;
-//
-//        Note noteToRemove = filterdNotes.get(position);
-//        filterdNotes.remove(position);
-//        notes.remove(noteToRemove);
-//        notifyItemRemoved(position);
-//
-//        new Thread(() -> {
-//            NoteDatabase.getInstance(context).noteDao().delete(noteToRemove);
-//            ((Activity) context).runOnUiThread(() -> {
-//                if (noteCountChangeListener != null) {
-//                    noteCountChangeListener.onNoteCountChanged(filterdNotes.size());
-//                }
-//            });
-//        }).start();
-//    }
+
+    private void removeNoteAt(int position) {
+        if (position < 0 || position >= filterdNotes.size()) return;
+
+        Note noteToRemove = filterdNotes.get(position);
+        filterdNotes.remove(position);
+        notes.remove(noteToRemove);
+        notifyItemRemoved(position);
+
+        new Thread(() -> {
+            NoteDatabase.getInstance(context).noteDao().delete(noteToRemove);
+            ((Activity) context).runOnUiThread(() -> {
+                if (noteCountChangeListener != null) {
+                    noteCountChangeListener.onNoteCountChanged(filterdNotes.size());
+                }
+            });
+        }).start();
+    }
+
+    public void showDeleteDialog(int position) {
+        new AlertDialog.Builder(context, R.style.AlertDialogFastStyling)
+                .setTitle("Выберите действие")
+                .setMessage("Вы хотите удалить/восстановить заметку?")
+                .setPositiveButton("Удалить", (dialog, which) -> showDeleteDialogReplay(position))
+                .setNegativeButton("Восстановить", (dialog, which) -> moveToMainActivity(position))
+                .setCancelable(false)
+                .show();
+        notifyDataSetChanged();
+    }
+
+
+    public void showDeleteDialogReplay(int position) {
+        new AlertDialog.Builder(context, R.style.AlertDialogFastStyling)
+                .setTitle("Вы действительно хотите удалить заметку?")
+                .setMessage("Заметка будет удалена без возвратно!")
+                .setPositiveButton("Удалить", (dialog, which) -> removeNoteAt(position))
+                .setNegativeButton("Отмена", (dialog, which) ->
+                        notifyDataSetChanged())
+                .setCancelable(false)
+                .show();
+        notifyDataSetChanged();
+    }
+
+
+    public void moveToMainActivity(int position) {
+        if (position < 0 || position >= filterdNotes.size()) return;
+
+        Note noteToRestore = filterdNotes.get(position);
+        noteToRestore.setDeleted(false); // Ставим статус не удалена заметка
+
+        // Удаляем из списка удаленных
+        filterdNotes.remove(position);
+        notes.remove(noteToRestore);
+        notifyItemRemoved(position);
+
+        // Восстанавливаем в базе данных
+        new Thread(() -> {
+            NoteDatabase db = NoteDatabase.getInstance(context);
+            db.noteDao().restoreNote(noteToRestore.getId());
+
+            ((Activity) context).runOnUiThread(() -> {
+                if (noteCountChangeListener != null) {
+                    noteCountChangeListener.onNoteCountChanged(filterdNotes.size());
+                }
+            });
+        }).start();
+    }
+
+
+    // НЕ УДАЛЯТЬ
 //
 //
 //    public void deleteSelectedNotes(){
@@ -272,7 +329,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         private TextView titleTextView;
         private TextView contentTextView;
         private TextView timeTextView;
-        private LinearLayout noteDetailsPanel;
         private ImageButton pin;
         private ImageView pinnedIcon;
         private CheckBox box;
@@ -285,7 +341,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             contentTextView = itemView.findViewById(R.id.noteContentTextView);
             timeTextView = itemView.findViewById(R.id.noteDateTextView);
             pinnedIcon = itemView.findViewById(R.id.pinnedIcon);
-            noteDetailsPanel = itemView.findViewById(R.id.noteDetailsPanel);
             box = itemView.findViewById(R.id.box);
             pin = itemView.findViewById(R.id.pin);
         }

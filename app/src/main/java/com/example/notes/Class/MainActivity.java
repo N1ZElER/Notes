@@ -200,8 +200,6 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.OnNot
                 noteAdapter.setNotes(notes);
                 noteAdapter.notifyDataSetChanged();
                 updateNotesCount(notes.size());
-
-                Log.d("MainActivity", "Notes loaded: " + notes.size());
             });
         });
     }
@@ -305,10 +303,6 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.OnNot
                 updateNotesCount(notes.size()); // Обновляем количество заметок
                 loadNotes();
             });
-
-            Log.d("MainActivity", "Заметка перемещена в корзину: " + note.getId());
         }
     }
-
-
 }
