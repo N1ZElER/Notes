@@ -4,11 +4,9 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,46 +14,79 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.notes.Adapter.NoteAdapter;
+import com.example.notes.Note;
 import com.example.notes.R;
 import com.google.android.material.navigation.NavigationView;
 
-public class SpravkaAndOzevs extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Arhive extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
-    private TextView tvQuestion,tvAnswer;
-    private ImageButton sigment;
+    private NoteAdapter noteAdapter;
+    private TextView countNotes;
+    private ImageButton sigment2;
+    private NavigationView navigationView;
     private SearchView searchView;
-    private NavigationView nav_view;
+    private RecyclerView notesRecyclerView;
+    private List<Note> notes = new ArrayList<>();
+
+
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_spravka_and_ozevs);
-        tvQuestion = findViewById(R.id.tvQuestion);
-        tvAnswer = findViewById(R.id.tvAnswer);
-        sigment = findViewById(R.id.sigment);
-        searchView = findViewById(R.id.searchView);
-        drawerLayout = findViewById(R.id.drawerLayout);
-        nav_view = findViewById(R.id.nav_view);
+        setContentView(R.layout.activity_arhive);
 
-        nav_view.setNavigationItemSelectedListener(item -> {
+        drawerLayout = findViewById(R.id.drawerLayout);
+        sigment2 = findViewById(R.id.sigment2);
+        navigationView = findViewById(R.id.navigationView);
+        searchView = findViewById(R.id.searchView);
+        notesRecyclerView = findViewById(R.id.notesRecyclerView);
+        countNotes = findViewById(R.id.countNotes);
+
+        noteAdapter = new NoteAdapter(notes, this);
+        notesRecyclerView.setAdapter(noteAdapter);
+
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                noteAdapter.filterNotes(query);
+                updateNotesCount(noteAdapter.getNoteCounts());
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                noteAdapter.filterNotes(newText);
+                updateNotesCount(noteAdapter.getNoteCounts());
+                return false;
+            }
+        });
+
+
+        navigationView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.nav_settings) {
-                startActivity(new Intent(SpravkaAndOzevs.this, Settings.class));
+                startActivity(new Intent(Arhive.this, Settings.class));
             } else if (id == R.id.nav_home) {
-                Intent intent = new Intent(SpravkaAndOzevs.this, MainActivity.class);
+                Intent intent = new Intent(Arhive.this, MainActivity.class);
                 startActivity(intent);
             } else if (id == R.id.nav_ozevs) {
-                drawerLayout.closeDrawers();
-            } else if (id == R.id.nav_folder) {
-                startActivity(new Intent(SpravkaAndOzevs.this, FileActivity.class));
-            } else if (id == R.id.nav_arhive) {
-                Intent intent = new Intent(SpravkaAndOzevs.this, Arhive.class);
+                Intent intent = new Intent(Arhive.this, SpravkaAndOzevs.class);
                 startActivity(intent);
+            } else if (id == R.id.nav_folder) {
+                startActivity(new Intent(Arhive.this, FileActivity.class));
+            } else if (id == R.id.nav_arhive) {
+                drawerLayout.closeDrawers();
             } else if (id == R.id.nav_dell) {
-                Intent intent = new Intent(SpravkaAndOzevs.this, Delete.class);
+                Intent intent = new Intent(Arhive.this, Delete.class);
                 startActivity(intent);
             }
 
@@ -63,17 +94,10 @@ public class SpravkaAndOzevs extends AppCompatActivity {
             return true;
         });
 
-        sigment.setOnClickListener(v -> drawerLayout.openDrawer(nav_view));
+        sigment2.setOnClickListener(v -> drawerLayout.openDrawer(navigationView));
 
-
-        tvQuestion.setOnClickListener(v -> {
-            if(tvAnswer.getVisibility() == View.GONE){
-                tvAnswer.setVisibility(View.VISIBLE);
-            }else{
-                tvAnswer.setVisibility(View.GONE);
-            }
-        });
     }
+
 
     // обновления менюшки
     @Override
@@ -84,7 +108,7 @@ public class SpravkaAndOzevs extends AppCompatActivity {
 
     // обновления менюшки
     private void updateCheckedItem() {
-        MenuItem item = nav_view.getMenu().findItem(getCheckedItemId());
+        MenuItem item = navigationView.getMenu().findItem(getCheckedItemId());
         if (item != null) {
             item.setChecked(true);
         }
@@ -107,7 +131,11 @@ public class SpravkaAndOzevs extends AppCompatActivity {
             case "DeleteActivity":
                 return R.id.nav_dell;
             default:
-                return R.id.nav_ozevs;
+                return R.id.nav_arhive;
         }
+    }
+
+    private void updateNotesCount(int count) {
+        countNotes.setText(getResources().getQuantityString(R.plurals.note_count, count, count));
     }
 }

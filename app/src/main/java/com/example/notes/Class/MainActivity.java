@@ -124,7 +124,8 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.OnNot
             } else if (id == R.id.nav_folder) {
                 startActivity(new Intent(MainActivity.this, FileActivity.class));
             } else if (id == R.id.nav_arhive) {
-                Toast.makeText(MainActivity.this, getString(R.string.in_development), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, Arhive.class);
+                startActivity(intent);
             } else if (id == R.id.nav_dell) {
                 Intent intent = new Intent(MainActivity.this, Delete.class);
                 startActivity(intent);

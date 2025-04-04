@@ -21,8 +21,8 @@ public interface NoteDao {
     void delete(Note note);
 
 
-//    @Query("SELECT * FROM notes")
-//    List<Note> getAllNotes();
+    @Query("SELECT * FROM notes")
+    List<Note> getAllNotes();
 
     @Query("SELECT * FROM notes WHERE folderPath = :folderPath AND isDeleted = 0")
     List<Note> getNotesByFolder(String folderPath);
@@ -73,4 +73,7 @@ public interface NoteDao {
 
     @Query("UPDATE notes SET isDeleted = 0 WHERE id = :noteId")
     void restoreNote(int noteId);
+
+//    @Query("DELETE FROM notes WHERE isArchived = 1 AND createTime <= :timeLimit")
+//    void deleteOldArchivedNotes(long timeLimit);
 }

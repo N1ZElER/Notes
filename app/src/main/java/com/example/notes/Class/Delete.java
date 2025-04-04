@@ -30,6 +30,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.notes.Adapter.NoteAdapter;
 import com.example.notes.Note;
+import com.example.notes.NoteDao;
 import com.example.notes.NoteDatabase;
 import com.example.notes.R;
 import com.google.android.material.navigation.NavigationView;
@@ -94,7 +95,8 @@ public class Delete extends AppCompatActivity {
             } else if (id == R.id.nav_folder) {
                 startActivity(new Intent(Delete.this, FileActivity.class));
             } else if (id == R.id.nav_arhive) {
-                Toast.makeText(Delete.this, getString(R.string.in_development), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Delete.this, Arhive.class);
+                startActivity(intent);
             } else if (id == R.id.nav_dell) {
                 drawerLayout.closeDrawers();
             }
@@ -234,7 +236,4 @@ public class Delete extends AppCompatActivity {
                     updateNotesCount(recentlyDeletedNotes.size());
                 });
     }
-
-
-
 }

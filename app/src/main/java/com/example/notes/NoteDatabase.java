@@ -6,14 +6,10 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.example.notes.FolderDao;
 import com.example.notes.GeterSrter.Folder;
 import com.example.notes.Migration.Migration_1_2;
-import com.example.notes.Note;
-import com.example.notes.NoteDao;
-import com.example.notes.RecentlyDeletedNote;
 
-@Database(entities = {Note.class, Folder.class, RecentlyDeletedNote.class}, version = 6)
+@Database(entities = {Note.class, Folder.class}, version = 5)
 public abstract class NoteDatabase extends RoomDatabase {
     private static NoteDatabase instance;
 

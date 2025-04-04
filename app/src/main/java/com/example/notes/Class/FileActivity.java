@@ -108,7 +108,8 @@ public class FileActivity extends AppCompatActivity {
             } else if (id == R.id.nav_folder) {
                 drawerLayout.closeDrawers();
             } else if (id == R.id.nav_arhive) {
-                Toast.makeText(FileActivity.this, "Пока в доработке", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(FileActivity.this, Arhive.class);
+                startActivity(intent);
             } else if (id == R.id.nav_dell){
                 if (!isTaskRoot()) {
                     onBackPressed();

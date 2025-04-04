@@ -8,5 +8,5 @@
         android:title="Закрепить выделенные заметки"/>
     <item
         android:id="@+id/view_attachments"
-        android:title="Настройки"/>
+        android:title="Арихивировать замтку"/>
 </menu>

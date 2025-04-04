@@ -108,7 +108,8 @@ public class Settings extends AppCompatActivity {
             } else if (id == R.id.nav_folder) {
                 startActivity(new Intent(Settings.this, FileActivity.class));
             } else if (id == R.id.nav_arhive) {
-                Toast.makeText(Settings.this, "Пока в доработке", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Settings.this, Arhive.class);
+                startActivity(intent);
             } else if (id == R.id.nav_dell){
                 Intent intent = new Intent(Settings.this, Delete.class);
                 startActivity(intent);

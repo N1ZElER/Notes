@@ -1,5 +1,8 @@
 package com.example.notes.Adapter;
 
+
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -8,6 +11,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -142,7 +146,47 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
                 onNoteClickListener.onNoteClick(currentNote);
             }
         });
+
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                showPopupMenu(v);
+                return false;
+            }
+        });
     }
+
+
+    private void showPopupMenu(View view) {
+        PopupMenu popupMenu = new PopupMenu(context, view);
+
+        popupMenu.getMenuInflater().inflate(R.menu.context_menu, popupMenu.getMenu());
+
+
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @SuppressLint("NonConstantResourceId")
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                int itemId = item.getItemId();
+
+                if (itemId == R.id.view_gallery) {
+                    deleteSelectedNotes();
+                    return true;
+                } else if (itemId == R.id.select_notes) {
+                    PinnedSelectedNotes();
+                    return true;
+                } else if (itemId == R.id.view_attachments) {
+
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
+        popupMenu.show();
+    }
+
 
     public void filterNotes(String query) {
         filterdNotes.clear();
@@ -159,10 +203,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         }
         notifyDataSetChanged();
     }
-
-
-
-
 
 
 
@@ -249,65 +289,67 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     }
 
 
-    // НЕ УДАЛЯТЬ
-//
-//
-//    public void deleteSelectedNotes(){
-//        if(selectedNotes.isEmpty()) return;
-//
-//        List<Note> noteToRemove = new ArrayList<>();
-//        for(Note note : notes){
-//            if(selectedNotes.contains(note.getId()));
-//            noteToRemove.add(note);
-//        }
-//
-//        notes.removeAll(noteToRemove);
-//        filterdNotes.removeAll(noteToRemove);
-//        notifyDataSetChanged();
-//
-//
-//        new Thread(() ->{
-//            NoteDatabase db = NoteDatabase.getInstance(context);
-//            NoteDao noteDao = db.noteDao();
-//            for(Note note : noteToRemove){
-//                noteDao.delete(note);
-//            }
-//            ((Activity)context).runOnUiThread(()->{
-//                if(noteCountChangeListener != null){
-//                    noteCountChangeListener.onNoteCountChanged(filterdNotes.size());
-//                }
-//            });
-//        }).start();
-//        selectedNotes.clear();
-//    }
-//
-//
-//    public void PinnedSelectedNotes(){
-//        if(selectedNotes.isEmpty()) return;
-//
-//        new Thread(()->{
-//            NoteDatabase db = NoteDatabase.getInstance(context);
-//            NoteDao noteDao = db.noteDao();
-//
-//            for(Note note : notes){
-//                if(selectedNotes.contains(note.getId())){
-//                    note.setPinned(true);
-//                    noteDao.updatePinStatus(note.getId(),true);
-//                }
-//            }
-//            List<Note> updetedNotes = noteDao.getAllNotes();
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                updetedNotes.sort((n1, n2)-> Boolean.compare(n2.isPinned(),n1.isPinned()));
-//            }
-//
-//            ((Activity)context).runOnUiThread(()->{
-//                setNotes(updetedNotes);
-//                selectedNotes.clear();
-//                notifyDataSetChanged();
-//            });
-//        }).start();
-//
-//    }
+
+
+
+    public void deleteSelectedNotes(){
+        if(selectedNotes.isEmpty()) return;
+
+        List<Note> noteToRemove = new ArrayList<>();
+        for(Note note : notes){
+            if(selectedNotes.contains(note.getId()));
+            noteToRemove.add(note);
+            note.setDeleted(true);
+            recentlyDeletedNotes.add(note);
+        }
+
+        notes.removeAll(noteToRemove);
+        filterdNotes.removeAll(noteToRemove);
+        notifyDataSetChanged();
+
+
+        new Thread(() ->{
+            NoteDatabase db = NoteDatabase.getInstance(context);
+            NoteDao noteDao = db.noteDao();
+            for(Note note : noteToRemove){
+                noteDao.moveToTrash(note.getId());
+            }
+            ((Activity)context).runOnUiThread(()->{
+                if(noteCountChangeListener != null){
+                    noteCountChangeListener.onNoteCountChanged(filterdNotes.size());
+                }
+            });
+        }).start();
+        selectedNotes.clear();
+    }
+
+
+    public void PinnedSelectedNotes(){
+        if(selectedNotes.isEmpty()) return;
+
+        new Thread(()->{
+            NoteDatabase db = NoteDatabase.getInstance(context);
+            NoteDao noteDao = db.noteDao();
+
+            for(Note note : notes){
+                if(selectedNotes.contains(note.getId())){
+                    note.setPinned(true);
+                    noteDao.updatePinStatus(note.getId(),true);
+                }
+            }
+            List<Note> updetedNotes = noteDao.getAllNotes();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                updetedNotes.sort((n1, n2)-> Boolean.compare(n2.isPinned(),n1.isPinned()));
+            }
+
+            ((Activity)context).runOnUiThread(()->{
+                setNotes(updetedNotes);
+                selectedNotes.clear();
+                notifyDataSetChanged();
+            });
+        }).start();
+
+    }
 
     public void moveItem(int from, int to) {
         if (from < 0 || to < 0 || from >= filterdNotes.size() || to >= filterdNotes.size()) return;
