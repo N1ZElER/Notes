@@ -30,7 +30,7 @@
                 android:id="@+id/titleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Папки"
+                android:text="@string/nav_folder"
                 android:textSize="32sp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
@@ -79,7 +79,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Основная папка"
+            android:text="@string/main_folder"
             android:textSize="20sp"
             android:textColor="@color/black"
             android:layout_marginStart="16dp"/>
@@ -108,7 +108,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Другие папки"
+            android:text="@string/other_folder"
             android:textSize="20sp"
             android:textColor="@color/black"
             android:layout_marginStart="16dp"/>

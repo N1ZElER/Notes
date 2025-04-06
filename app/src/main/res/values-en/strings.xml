@@ -6,6 +6,13 @@
     <string name="coming_soon">Coming soon</string>
     <string name="in_development">Still in development</string>
     <string name="note_updated_log">Note update detected, reloading list</string>
+    <string name="recently_deleted">Recently Deleted</string>
+    <string name="delete_info">Notes are available here for 30 days. After that, they will be permanently deleted. This may take up to 40 days.</string>
+
+    <string name="language">Language</string>
+    <string name="other_folder">Other Folder</string>
+
+    <string name="main_folder">Main Folder</string>
 
     <!-- Навигация -->
     <string name="nav_settings">Settings</string>
@@ -13,13 +20,16 @@
     <string name="nav_reviews">Reviews</string>
     <string name="nav_folder">Folders</string>
     <string name="nav_archive">Archive</string>
+    <string name="otobr">Display Parameters</string>
+    <string name="themess">Themes</string>
+    <string name="nav_othevs">Help and Reviews</string>
 
     <!-- Контекстное меню -->
     <string name="action_edit">Edit</string>
     <string name="action_delete">Delete</string>
 
     <!-- Поиск -->
-    <string name="search_hint">Search...</string>
+    <string name="search_hint">Search</string>
 
     <!-- Подсчет заметок -->
     <plurals name="note_count">
@@ -39,7 +49,7 @@
     <string name="language_english">English</string>
     <string name="cancel">Cancel</string>
     <string name="current_language">Current language</string>
-
-
     <string name="current_theme">Current theme</string>
+
+
 </resources>

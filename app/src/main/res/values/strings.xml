@@ -6,6 +6,12 @@
     <string name="coming_soon">Скоро</string>
     <string name="in_development">Пока в доработке</string>
     <string name="note_updated_log">Обнаружено обновление заметки, перезагружаем список</string>
+    <string name="language">Язык</string>
+    <string name="other_folder">Другие папки</string>
+    <string name="main_folder">Основная папка</string>
+    <string name="recently_deleted">Недавно удалённые</string>
+    <string name="delete_info">Заметки доступны здесь в течение 30 дней. По истечении этого срока заметки будут удалены безвозвратно. Это может занять до 40 дней.</string>
+    <string name="otobr">Параметры отображения</string>
 
     <!-- Навигация -->
     <string name="nav_settings">Настройки</string>
@@ -13,13 +19,15 @@
     <string name="nav_reviews">Отзывы</string>
     <string name="nav_folder">Папки</string>
     <string name="nav_archive">Архив</string>
+    <string name="nav_othevs">Справка и отзывы</string>
+
 
     <!-- Контекстное меню -->
     <string name="action_edit">Редактировать</string>
     <string name="action_delete">Удалить</string>
 
     <!-- Поиск -->
-    <string name="search_hint">Поиск...</string>
+    <string name="search_hint">Поиск</string>
 
     <!-- Подсчет заметок -->
     <plurals name="note_count">
@@ -47,5 +55,5 @@
     <string name="themes_day">Светлая</string>
     <string name="themes_system">Как в системе</string>
     <string name="current_themes">Текущая тема</string>
-
+    <string name="themess">Тема</string>
 </resources>

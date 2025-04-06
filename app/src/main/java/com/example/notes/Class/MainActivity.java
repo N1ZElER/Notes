@@ -52,16 +52,35 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.OnNot
 
     private static final int REQUEST_CODE_EDIT_NOTE = 1;
 
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        SharedPreferences prefs = newBase.getSharedPreferences("Settings", MODE_PRIVATE);
+        String lang = prefs.getString("Selected_Language", "ru");
+
+        Locale newLocale = new Locale(lang);
+        Locale.setDefault(newLocale);
+
+        Configuration config = new Configuration();
+        config.setLocale(newLocale);
+
+        Context context = newBase.createConfigurationContext(config);
+        super.attachBaseContext(context);
+    }
+
+
     @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadLocale();
+        LocaleHelper.loadLocale(this);
         setContentView(R.layout.activity_main);
 
         // язык
         LocaleHelper.setLocale(getApplicationContext(), loadLanguage());
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+
+
 
         drawerLayout = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.navigationView);
@@ -171,19 +190,6 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.OnNot
 
         itemTouchHelperMove.attachToRecyclerView(notesRecyclerView);
     }
-
-
-    private void loadLocale() {
-        SharedPreferences preferences = getSharedPreferences("Settings", MODE_PRIVATE);
-        String language = preferences.getString("language", "ru");
-        Locale locale = new Locale(language);
-        Locale.setDefault(locale);
-        Resources resources = getResources();
-        Configuration config = new Configuration(resources.getConfiguration());
-        config.setLocale(locale);
-        resources.updateConfiguration(config, resources.getDisplayMetrics());
-    }
-
 
     private void loadNotes() {
         AsyncTask.execute(() -> {

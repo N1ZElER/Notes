@@ -34,7 +34,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Настройки"
+                android:text="@string/nav_settings"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginStart="8dp"/>
@@ -55,7 +55,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Параметры отображения"
+                    android:text="@string/otobr"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:paddingBottom="16dp"/>
@@ -71,7 +71,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Тема"
+                        android:text="@string/themess"
                         android:textSize="16sp"
                         android:layout_weight="1"/>
 
@@ -100,7 +100,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Язык"
+                        android:text="@string/language"
                         android:textSize="16sp"
                         android:layout_weight="1"/>
 

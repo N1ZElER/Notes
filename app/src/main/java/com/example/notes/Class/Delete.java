@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,6 +39,7 @@ import com.google.android.material.navigation.NavigationView;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class Delete extends AppCompatActivity {
 
@@ -58,6 +60,21 @@ public class Delete extends AppCompatActivity {
             loadDeletedNotes();
         }
     };
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        SharedPreferences prefs = newBase.getSharedPreferences("Settings", MODE_PRIVATE);
+        String lang = prefs.getString("Selected_Language", "ru");
+
+        Locale newLocale = new Locale(lang);
+        Locale.setDefault(newLocale);
+
+        Configuration config = new Configuration();
+        config.setLocale(newLocale);
+
+        Context context = newBase.createConfigurationContext(config);
+        super.attachBaseContext(context);
+    }
 
 
     @SuppressLint("MissingInflatedId")

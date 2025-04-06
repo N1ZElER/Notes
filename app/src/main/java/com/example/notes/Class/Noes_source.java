@@ -1,6 +1,9 @@
 package com.example.notes.Class;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -21,6 +24,7 @@ import com.example.notes.NoteDatabase;
 import com.example.notes.R;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class Noes_source extends AppCompatActivity {
 
@@ -29,6 +33,21 @@ public class Noes_source extends AppCompatActivity {
     private ImageView sigmentNotes;
     private NoteAdapter adapter;
     private ArrayList <Note> NoteList;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        SharedPreferences prefs = newBase.getSharedPreferences("Settings", MODE_PRIVATE);
+        String lang = prefs.getString("Selected_Language", "ru");
+
+        Locale newLocale = new Locale(lang);
+        Locale.setDefault(newLocale);
+
+        Configuration config = new Configuration();
+        config.setLocale(newLocale);
+
+        Context context = newBase.createConfigurationContext(config);
+        super.attachBaseContext(context);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,7 +1,10 @@
 package com.example.notes.Class;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -35,6 +38,7 @@ import com.google.android.material.navigation.NavigationView;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -53,6 +57,21 @@ public class FileActivity extends AppCompatActivity {
     private FolderDao folderDao;
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        SharedPreferences prefs = newBase.getSharedPreferences("Settings", MODE_PRIVATE);
+        String lang = prefs.getString("Selected_Language", "ru");
+
+        Locale newLocale = new Locale(lang);
+        Locale.setDefault(newLocale);
+
+        Configuration config = new Configuration();
+        config.setLocale(newLocale);
+
+        Context context = newBase.createConfigurationContext(config);
+        super.attachBaseContext(context);
+    }
 
 
     @SuppressLint("MissingInflatedId")
@@ -111,13 +130,10 @@ public class FileActivity extends AppCompatActivity {
                 Intent intent = new Intent(FileActivity.this, Arhive.class);
                 startActivity(intent);
             } else if (id == R.id.nav_dell){
-                if (!isTaskRoot()) {
-                    onBackPressed();
-                } else {
                     Intent intent = new Intent(FileActivity.this, Delete.class);
                     startActivity(intent);
                 }
-            }
+
             drawerLayout.closeDrawers();
             return true;
         });
