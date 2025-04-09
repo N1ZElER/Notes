@@ -168,7 +168,13 @@ public class FileActivity extends AppCompatActivity {
             }
         });
 
-        notesRecyclerView2.setOnClickListener(v -> finish());
+        notesRecyclerView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FileActivity.this,MainActivity.class);
+                startActivity(intent);
+            }
+        });
         sigment2.setOnClickListener(v -> drawerLayout.openDrawer(navigationView));
         addFolderButton.setOnClickListener(view -> showInputDialog());
     }

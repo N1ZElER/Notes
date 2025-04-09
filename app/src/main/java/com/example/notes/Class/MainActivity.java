@@ -279,10 +279,10 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.OnNot
             return;
         }
         new AlertDialog.Builder(context, R.style.AlertDialogFastStyling)
-                .setTitle("Удалить заметку?")
-                .setMessage("Вы действительно хотите удалить эту заметку?")
-                .setPositiveButton("Удалить", (dialog, which) -> moveToRecentlyDeleted(position))
-                .setNegativeButton("Отмена", (dialog, which) -> noteAdapter.notifyItemChanged(position))
+                .setTitle(context.getString(R.string.delete_note))
+                .setMessage(context.getString(R.string.delete_context))
+                .setPositiveButton(context.getString(R.string.action_delete), (dialog, which) -> moveToRecentlyDeleted(position))
+                .setNegativeButton(context.getString(R.string.cancel), (dialog, which) -> noteAdapter.notifyItemChanged(position))
                 .setCancelable(false)
                 .show();
     }

@@ -241,10 +241,10 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
     public void showDeleteDialog(int position) {
         new AlertDialog.Builder(context, R.style.AlertDialogFastStyling)
-                .setTitle("Выберите действие")
-                .setMessage("Вы хотите удалить/восстановить заметку?")
-                .setPositiveButton("Удалить", (dialog, which) -> showDeleteDialogReplay(position))
-                .setNegativeButton("Восстановить", (dialog, which) -> moveToMainActivity(position))
+                .setTitle(context.getString(R.string.nav_deistvie))
+                .setMessage(context.getString(R.string.nav_deistvie_info))
+                .setPositiveButton(context.getString(R.string.action_delete), (dialog, which) -> showDeleteDialogReplay(position))
+                .setNegativeButton(context.getString(R.string.restore), (dialog, which) -> moveToMainActivity(position))
                 .setCancelable(false)
                 .show();
         notifyDataSetChanged();
@@ -253,10 +253,10 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
     public void showDeleteDialogReplay(int position) {
         new AlertDialog.Builder(context, R.style.AlertDialogFastStyling)
-                .setTitle("Вы действительно хотите удалить заметку?")
-                .setMessage("Заметка будет удалена без возвратно!")
-                .setPositiveButton("Удалить", (dialog, which) -> removeNoteAt(position))
-                .setNegativeButton("Отмена", (dialog, which) ->
+                .setTitle(context.getString(R.string.nav_deistvie_info2))
+                .setMessage(context.getString(R.string.perm_delete))
+                .setPositiveButton(context.getString(R.string.action_delete), (dialog, which) -> removeNoteAt(position))
+                .setNegativeButton(context.getString(R.string.cancel), (dialog, which) ->
                         notifyDataSetChanged())
                 .setCancelable(false)
                 .show();

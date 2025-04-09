@@ -27,6 +27,11 @@
     <!-- Контекстное меню -->
     <string name="action_edit">Edit</string>
     <string name="action_delete">Delete</string>
+    <string name="nav_title">Title</string>
+    <string name="nav_text">Text</string>
+    <string name="nav_title_change">Change title</string>
+    <string name="nav_text_change">Change text</string>
+
 
     <!-- Поиск -->
     <string name="search_hint">Search</string>
@@ -42,6 +47,14 @@
     <!-- Кнопки -->
     <string name="add_note">Add note</string>
     <string name="note_count_hint">Count</string>
+    <string name="delete_note">Delete note?</string>
+    <string name="delete_context">Do you really want to delete this note?</string>
+    <string name="nav_deistvie">Select an action</string>
+    <string name="nav_deistvie_info">Do you want to delete/restore a note?</string>
+    <string name="restore">restore</string>
+    <string name="nav_deistvie_info2">Do you really want to delete the note?</string>
+    <string name="perm_delete">The note will be permanently deleted!</string>
+
 
 
     <string name="choose_language">Choose language</string>

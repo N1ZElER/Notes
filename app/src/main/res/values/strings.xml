@@ -25,6 +25,10 @@
     <!-- Контекстное меню -->
     <string name="action_edit">Редактировать</string>
     <string name="action_delete">Удалить</string>
+    <string name="nav_title">Название</string>
+    <string name="nav_text">Текст</string>
+    <string name="nav_title_change">Изменить название</string>
+    <string name="nav_text_change">Изменить контекст</string>
 
     <!-- Поиск -->
     <string name="search_hint">Поиск</string>
@@ -40,6 +44,18 @@
     <!-- Кнопки -->
     <string name="add_note">Добавить заметку</string>
     <string name="note_count_hint">Кол - во</string>
+    <string name="delete_note">Удалить заметку?</string>
+    <string name="delete_context">Вы действительно хотите удалить эту заметку?</string>
+    <string name="nav_deistvie">Выберите действие</string>
+    <string name="nav_deistvie_info">Вы хотите удалить/восстановить заметку?</string>
+    <string name="nav_deistvie_info2">Вы действительно хотите удалить заметку?</string>
+    <string name="perm_delete">Заметка будет удалена без возвратно!</string>
+
+
+    <string name="restore">Восстановить</string>
+
+
+
 
 
     <!--    языки-->
