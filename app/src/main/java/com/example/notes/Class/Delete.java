@@ -12,7 +12,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,6 +54,7 @@ public class Delete extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private RecyclerView notesRecyclerView;
     private static List<Note> recentlyDeletedNotes = new ArrayList<>();
+    private Context context;
 
 
     private BroadcastReceiver updateReceiver = new BroadcastReceiver() {
@@ -188,8 +191,9 @@ public class Delete extends AppCompatActivity {
         });
 
         itemTouchHelperMove.attachToRecyclerView(notesRecyclerView);
-    }
 
+
+    }
 
     @Override
     protected void onDestroy() {

@@ -30,9 +30,6 @@ public class Noes_source extends AppCompatActivity {
 
 
     EditText noteTitle, noteContent;
-    private ImageView sigmentNotes;
-    private NoteAdapter adapter;
-    private ArrayList <Note> NoteList;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -57,10 +54,8 @@ public class Noes_source extends AppCompatActivity {
 
         noteContent = findViewById(R.id.noteContent);
         noteTitle = findViewById(R.id.noteTitle);
-        sigmentNotes = findViewById(R.id.sigmentNotes);
 
-        NoteList = new ArrayList<>();
-        adapter = new NoteAdapter(Noes_source.this, NoteList);
+
 
 
         // не зваисимость от темы телефона
@@ -70,32 +65,10 @@ public class Noes_source extends AppCompatActivity {
         // Крусор на начало
         noteTitle.requestFocus();
 
-        sigmentNotes.setOnClickListener(v -> showButton(v));
     }
 
 
-    private void showButton(View view) {
-        PopupMenu popup = new PopupMenu(this, view);
-        MenuInflater inflater = popup.getMenuInflater();
-        inflater.inflate(R.menu.context_menu2, popup.getMenu());
 
-
-        popup.setOnMenuItemClickListener(item -> {
-            int id = item.getItemId();
-            if (id == R.id.view_gallery) {
-//                adapter.deleteSelectedFolders();
-                return true;
-            } else if (id == R.id.select_notes) {
-//                adapter.PinCurrentFolderNotes();
-                return true;
-            } else if (id == R.id.view_attachments) {
-                Toast.makeText(this, "Ничего нету", Toast.LENGTH_SHORT).show();
-                return true;
-            }
-            return false;
-        });
-        popup.show();
-    }
 
 
 

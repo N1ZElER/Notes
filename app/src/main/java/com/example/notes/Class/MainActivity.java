@@ -9,6 +9,8 @@ import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ActionMode;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -45,12 +47,16 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.OnNot
     private String folderPath;
     private View sigment;
     private Context context;
-    private static List<Note> notes = new ArrayList<>();
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-    private static List<Note> recentlyDeletedNotes = new ArrayList<>();
-
+    private static List<Note> notes = new ArrayList<>();
     private static final int REQUEST_CODE_EDIT_NOTE = 1;
+
+
+
+
+
+
 
 
     @Override
@@ -293,7 +299,7 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.OnNot
             note.setDeleted(true); // Устанавливаем статус заметки как удалённый
 
             // Добавляем заметку в список недавно удалённых (если нужно)
-            recentlyDeletedNotes.add(note);
+            notes.add(note);
 
             // Обновляем данные в базе данных (перемещаем в корзину)
             AsyncTask.execute(() -> {

@@ -44,7 +44,7 @@
             android:id="@+id/noteDetailsTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Подробности"
+            android:text="Отредактировать"
             android:textColor="@color/black"
             android:textSize="14sp" />
     </LinearLayout>

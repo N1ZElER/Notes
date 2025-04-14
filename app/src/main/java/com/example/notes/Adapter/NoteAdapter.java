@@ -2,24 +2,23 @@ package com.example.notes.Adapter;
 
 
 
+import static android.widget.Toast.LENGTH_SHORT;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.os.AsyncTask;
+import android.content.Intent;
 import android.os.Build;
-import android.util.Log;
-import android.view.Gravity;
+import androidx.appcompat.view.ActionMode;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.PopupMenu;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,8 +35,6 @@ import com.example.notes.NoteDao;
 import com.example.notes.NoteDatabase;
 import com.example.notes.R;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -48,6 +45,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     private List<Note> filterdNotes = new ArrayList<>();
     private Context context;
     private OnNoteClickListener onNoteClickListener;
+    private androidx.appcompat.view.ActionMode actionMode;
     private OnNoteCountChangeListener noteCountChangeListener;
     private Set<Integer> selectedNotes = new HashSet<>(); // id выделенных заметок
 
@@ -56,10 +54,10 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         this.context = context;
     }
 
-    public NoteAdapter(Noes_source context, ArrayList<Note> notes) {
-        this.context = context;
-        this.notes = notes;
-    }
+//    public NoteAdapter(Noes_source context, ArrayList<Note> notes) {
+//        this.context = context;
+//        this.notes = notes;
+//    }
 
     public interface OnNoteCountChangeListener {
         void onNoteCountChanged(int count);
@@ -148,44 +146,91 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         });
 
 
-        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                showPopupMenu(v);
-                return false;
+        holder.box.setOnClickListener(v -> {
+
+
+
+            if (selectedNotes.contains(position)) {
+                selectedNotes.remove(position);
+                v.setSelected(false);
+            } else {
+                selectedNotes.add(position);
+                v.setSelected(true);
             }
-        });
-    }
 
 
-    private void showPopupMenu(View view) {
-        PopupMenu popupMenu = new PopupMenu(context, view);
+            if (selectedNotes.isEmpty()) {
+                if (actionMode != null) {
+                    actionMode.finish();
 
-        popupMenu.getMenuInflater().inflate(R.menu.context_menu, popupMenu.getMenu());
 
-
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @SuppressLint("NonConstantResourceId")
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                int itemId = item.getItemId();
-
-                if (itemId == R.id.view_gallery) {
-                    deleteSelectedNotes();
-                    return true;
-                } else if (itemId == R.id.select_notes) {
-                    PinnedSelectedNotes();
-                    return true;
-                } else if (itemId == R.id.view_attachments) {
-
-                    return true;
-                } else {
-                    return false;
+                }
+            } else {
+                if (actionMode == null) {
+                    actionMode = ((AppCompatActivity) v.getContext()).startSupportActionMode(actionModeCallback);
                 }
             }
         });
-        popupMenu.show();
+
     }
+
+
+    private final ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            mode.getMenuInflater().inflate(R.menu.poupapmenu, menu);
+            return true;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            int itemId = item.getItemId();
+
+            if (itemId == R.id.view_gallery) {
+                PinnedSelectedNotes();
+                actionMode.finish();
+                return true;
+            } else if (itemId == R.id.select_notes) {
+                Toast toast = Toast.makeText(context, "В разработке", Toast.LENGTH_LONG);
+                toast.show();
+                return true;
+            } else if (itemId == R.id.view_attachments) {
+                Toast toast = Toast.makeText(context, "В разработке", Toast.LENGTH_LONG);
+                toast.show();
+                return true;
+            } else if (itemId == R.id.nav_arhive) {
+                Toast toast = Toast.makeText(context, "В разработке", Toast.LENGTH_LONG);
+                toast.show();
+                return true;
+            } else if (itemId == R.id.action_delete) {
+                deleteSelectedNotes();
+                actionMode.finish();
+                return true;
+            } else if (itemId == R.id.copy) {
+                Toast toast = Toast.makeText(context, "В разработке", Toast.LENGTH_LONG);
+                toast.show();
+                return true;
+            } else if (itemId == R.id.send) {
+                Toast toast = Toast.makeText(context, "В разработке", Toast.LENGTH_LONG);
+                toast.show();
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            actionMode = null;
+            notifyDataSetChanged();
+        }
+    };
+
 
 
     public void filterNotes(String query) {
@@ -297,7 +342,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
         List<Note> noteToRemove = new ArrayList<>();
         for(Note note : notes){
-            if(selectedNotes.contains(note.getId()));
+            if (selectedNotes.contains(note.getId()));
             noteToRemove.add(note);
             note.setDeleted(true);
             recentlyDeletedNotes.add(note);
@@ -324,32 +369,35 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     }
 
 
-    public void PinnedSelectedNotes(){
-        if(selectedNotes.isEmpty()) return;
+    public void PinnedSelectedNotes() {
+        if (selectedNotes.isEmpty()) return;
 
-        new Thread(()->{
+        new Thread(() -> {
             NoteDatabase db = NoteDatabase.getInstance(context);
             NoteDao noteDao = db.noteDao();
 
-            for(Note note : notes){
-                if(selectedNotes.contains(note.getId())){
+            for (Integer noteId : selectedNotes) {
+                Note note = noteDao.getNoteById(noteId); // нужен такой метод в DAO
+                if (note != null) {
                     note.setPinned(true);
-                    noteDao.updatePinStatus(note.getId(),true);
+                    noteDao.updatePinStatus(noteId, true);
                 }
             }
-            List<Note> updetedNotes = noteDao.getAllNotes();
+
+            List<Note> updatedNotes = noteDao.getAllNotess(); // должен фильтровать, если нужно
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                updetedNotes.sort((n1, n2)-> Boolean.compare(n2.isPinned(),n1.isPinned()));
+                updatedNotes.sort((n1, n2) -> Boolean.compare(n2.isPinned(), n1.isPinned()));
             }
 
-            ((Activity)context).runOnUiThread(()->{
-                setNotes(updetedNotes);
+            ((Activity) context).runOnUiThread(() -> {
+                setNotes(updatedNotes);
                 selectedNotes.clear();
                 notifyDataSetChanged();
             });
         }).start();
-
     }
+
 
     public void moveItem(int from, int to) {
         if (from < 0 || to < 0 || from >= filterdNotes.size() || to >= filterdNotes.size()) return;

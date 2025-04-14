@@ -1,10 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/action_edit"
-        android:title="Редактировать" />
+        android:id="@+id/view_gallery"
+        android:title="Закрепить"
+        android:icon="@drawable/baseline_push_pin_24"
+        android:checkable="true"
+        />
+    <item
+        android:id="@+id/select_notes"
+        android:icon="@drawable/baseline_access_alarms_24"
+        android:title="Добавить напомнания"
+        android:checkable="true"/>
+    <item
+        android:id="@+id/view_attachments"
+        android:icon="@drawable/baseline_border_color_24"
+        android:title="Изменить цвет"
+        android:checkable="true"/>
+
+
+
+    <item
+        android:id="@+id/nav_arhive"
+        android:title="Поместить в архив" />
+
     <item
         android:id="@+id/action_delete"
         android:title="Удалить" />
 
-</menu>
+    <item
+        android:id="@+id/copy"
+        android:title="Скопировать" />
 
+    <item
+        android:id="@+id/send"
+        android:title="Отправить" />
+
+
+
+</menu>
