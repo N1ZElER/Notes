@@ -377,14 +377,14 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             NoteDao noteDao = db.noteDao();
 
             for (Integer noteId : selectedNotes) {
-                Note note = noteDao.getNoteById(noteId); // нужен такой метод в DAO
+                Note note = noteDao.getNoteById(noteId);
                 if (note != null) {
                     note.setPinned(true);
                     noteDao.updatePinStatus(noteId, true);
                 }
             }
 
-            List<Note> updatedNotes = noteDao.getAllNotess(); // должен фильтровать, если нужно
+            List<Note> updatedNotes = noteDao.getAllNotess();
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 updatedNotes.sort((n1, n2) -> Boolean.compare(n2.isPinned(), n1.isPinned()));
