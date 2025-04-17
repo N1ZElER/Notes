@@ -31,6 +31,16 @@
     <string name="nav_text">Text</string>
     <string name="nav_title_change">Change title</string>
     <string name="nav_text_change">Change text</string>
+    <string name="pinneding">Pin</string>
+    <string name="notify">Add reminders</string>
+    <string name="ChangeColor">Change color</string>
+    <string name="GoToArhive">Archive it</string>
+    <string name="Delete">Delete</string>
+    <string name="Copy">Copy</string>
+    <string name="Send">Send</string>
+
+
+
 
 
     <!-- Поиск -->

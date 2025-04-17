@@ -29,6 +29,16 @@
     <string name="nav_text">Текст</string>
     <string name="nav_title_change">Изменить название</string>
     <string name="nav_text_change">Изменить контекст</string>
+    <string name="pinneding">Закрепить</string>
+    <string name="notify">Добавить напоминания</string>
+    <string name="ChangeColor">Изменить цвет</string>
+    <string name="GoToArhive">Поместить в архив</string>
+    <string name="Delete">Удалить</string>
+    <string name="Copy">Скопировать</string>
+    <string name="Send">Отправить</string>
+
+
+
 
     <!-- Поиск -->
     <string name="search_hint">Поиск</string>
