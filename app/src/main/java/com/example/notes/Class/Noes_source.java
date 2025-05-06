@@ -1,5 +1,7 @@
 package com.example.notes.Class;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +10,7 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -20,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.notes.Adapter.FolderAdapter;
 import com.example.notes.Adapter.NoteAdapter;
 import com.example.notes.Note;
+import com.example.notes.NoteDao;
 import com.example.notes.NoteDatabase;
 import com.example.notes.R;
 
@@ -66,6 +70,26 @@ public class Noes_source extends AppCompatActivity {
         noteTitle.requestFocus();
 
     }
+
+
+
+    // НЕ УДАЛЯТЬ
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int id = item.getItemId();
+//
+//        if (id == R.id.copy) {
+//            EditText noteContent = findViewById(R.id.noteContent);
+//            String noteText = noteContent.getText().toString();
+//
+//
+//            ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+//            ClipData clip = ClipData.newPlainText("Note", noteText);
+//            clipboard.setPrimaryClip(clip);
+//            return true;
+//
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
 
 

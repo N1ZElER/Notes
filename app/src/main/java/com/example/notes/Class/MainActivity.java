@@ -54,11 +54,6 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.OnNot
 
 
 
-
-
-
-
-
     @Override
     protected void attachBaseContext(Context newBase) {
         SharedPreferences prefs = newBase.getSharedPreferences("Settings", MODE_PRIVATE);

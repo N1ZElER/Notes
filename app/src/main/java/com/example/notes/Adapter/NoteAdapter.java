@@ -6,6 +6,8 @@ import static android.widget.Toast.LENGTH_SHORT;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -16,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -52,12 +55,10 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     private static List<Note> recentlyDeletedNotes = new ArrayList<>();
     public NoteAdapter(List<Note> notes, Context context) {
         this.context = context;
+        this.notes = new ArrayList<>(notes);
+        this.filterdNotes = new ArrayList<>(notes);
     }
 
-//    public NoteAdapter(Noes_source context, ArrayList<Note> notes) {
-//        this.context = context;
-//        this.notes = notes;
-//    }
 
     public interface OnNoteCountChangeListener {
         void onNoteCountChanged(int count);
@@ -81,6 +82,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
+
 
         Note currentNote = filterdNotes.get(position);
         holder.titleTextView.setText(currentNote.getTitle());
@@ -229,8 +231,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             actionMode = null;
             notifyDataSetChanged();
         }
-    };
 
+    };
 
 
     public void filterNotes(String query) {
@@ -248,6 +250,9 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         }
         notifyDataSetChanged();
     }
+
+
+
 
 
 
@@ -342,11 +347,11 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
         List<Note> noteToRemove = new ArrayList<>();
         for(Note note : notes){
-            if (selectedNotes.contains(note.getId()));
-            noteToRemove.add(note);
-            note.setDeleted(true);
-            recentlyDeletedNotes.add(note);
-        }
+            if (selectedNotes.contains(note.getId()))
+                    noteToRemove.add(note);
+                    note.setDeleted(true);
+                    recentlyDeletedNotes.add(note);
+            }
 
         notes.removeAll(noteToRemove);
         filterdNotes.removeAll(noteToRemove);

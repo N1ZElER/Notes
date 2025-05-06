@@ -1,5 +1,7 @@
 package com.example.notes;
 
+import android.widget.EditText;
+
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -21,8 +23,8 @@ public interface NoteDao {
     void delete(Note note);
 
 
-    @Query("SELECT * FROM notes")
-    List<Note> getAllNotes();
+//    @Query("SELECT * FROM notes")
+//    List<Note> getAllNotes();
 
     @Query("SELECT * FROM notes WHERE folderPath = :folderPath AND isDeleted = 0")
     List<Note> getNotesByFolder(String folderPath);
@@ -47,6 +49,7 @@ public interface NoteDao {
 
     @Query("SELECT * FROM notes WHERE isDeleted = 0")
     List<Note> getAllNotess();
+
 
 
 
