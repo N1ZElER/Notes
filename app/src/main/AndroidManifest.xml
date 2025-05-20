@@ -16,7 +16,7 @@
             android:name=".Class.MyApplication"
             android:exported="false" />
         <activity
-            android:name=".ViewModels.SingleLiveEvent"
+            android:name=".SimpleEvent.SingleLiveEvent"
             android:exported="false" />
         <activity
             android:name=".ViewModels.SettingsViewModel"

@@ -2,18 +2,10 @@ package com.example.notes.ViewModels;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.notes.R;
+import com.example.notes.SimpleEvent.SingleLiveEvent;
 
 public class SettingsViewModel extends ViewModel {
 

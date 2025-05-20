@@ -1,4 +1,4 @@
-package com.example.notes.ViewModels;
+package com.example.notes.SimpleEvent;
 
 import androidx.annotation.MainThread;
 import androidx.lifecycle.LifecycleOwner;
