@@ -72,7 +72,7 @@
     <string name="language_english">English</string>
     <string name="cancel">Cancel</string>
     <string name="current_language">Current language</string>
-    <string name="current_theme">Current theme</string>
+    <string name="current_themes">Current theme</string>
 
 
 </resources>
