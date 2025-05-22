@@ -25,7 +25,7 @@ public class Settings extends AppCompatActivity {
 
     private DrawerLayout drawer_layout;
     private TextView languageText, themeText;
-    private String[] themes;
+    private String[] themes = {"Светлая", "Темная", "Как в системе"} ;
     private String[] languages = {"English", "Русский"};
     private String[] languageCodes = {"en", "ru",};
     private String[] ThemeCodes = {"day", "night", "system"};
@@ -47,9 +47,11 @@ public class Settings extends AppCompatActivity {
         themeText = findViewById(R.id.themeText);
         drawer_layout = findViewById(R.id.drawer_layout);
         languageLayout = findViewById(R.id.languageLayout);
+        themeLayout = findViewById(R.id.themeLayout);
 
         // UI update
         loadLanguageToUI();
+        loadThemesToUI();
 
 
 
@@ -65,8 +67,16 @@ public class Settings extends AppCompatActivity {
 
         });
 
+        viewModel.getThemeLiveData().observe(this,themes->{
+            recreate();
+        });
+
         languageLayout.setOnClickListener(v -> {
             showLanguageDialog();
+        });
+
+        themeLayout.setOnClickListener(v->{
+            showThemesDialog();
         });
 
 
@@ -135,6 +145,34 @@ public class Settings extends AppCompatActivity {
         builder.setNegativeButton(getString(R.string.cancel), (dialog, which) -> {});
         builder.create().show();
     }
+
+
+    private void loadThemesToUI() {
+        SharedPreferences prefs = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        String savedThemes = prefs.getString("themes", "day");
+        if (savedThemes.equals("day")) {
+            themeText.setText(getString(R.string.themes_day));
+        } else {
+            if(savedThemes.equals("night")) {
+                themeText.setText(getString(R.string.themes_night));
+            }else{
+                if(savedThemes.equals("system")){
+                    themeText.setText(R.string.themes_system);
+                }
+            }
+        }
+    }
+
+    private void showThemesDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogFastStyling);
+        builder.setTitle(getString(R.string.choose_themes));
+        builder.setItems(themes, (dialog, which) -> {
+            viewModel.changeThemes(this, ThemeCodes[which]);
+        });
+        builder.setNegativeButton(getString(R.string.cancel), (dialog, which) -> {});
+        builder.create().show();
+    }
+
 
 
 
