@@ -43,11 +43,10 @@ public class MainActivity extends AppCompatActivity {
     private NoteAdapter adapter;
     private RecyclerView notesRecyclerView;
     private TextView countNotes;
-    private FloatingActionButton addNoteButton;
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
     private Context context;
-    private ImageButton sigment;
+    private ImageButton sigment,addNoteButton;
     private SearchView searchView;
 
     @Override

@@ -114,7 +114,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             contentTextView = itemView.findViewById(R.id.noteContentTextView);
             noteDateTextView = itemView.findViewById(R.id.noteDateTextView);
             pinnedIcon = itemView.findViewById(R.id.pinnedIcon);
-            box = itemView.findViewById(R.id.box);
+//            box = itemView.findViewById(R.id.box);
 //            pin = itemView.findViewById(R.id.pin);
         }
     }

@@ -16,7 +16,8 @@
         android:id="@+id/nav_arhive"
         android:title="@string/nav_archive"
         android:icon="@drawable/baseline_archive_24"
-        android:checkable="true"/>
+        android:checkable="true"
+        />
 
 
     <item
