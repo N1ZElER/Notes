@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
@@ -38,6 +39,22 @@ public class Settings extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+//        SharedPreferences prefs = getSharedPreferences("settings", Context.MODE_PRIVATE);
+//        String savedTheme = prefs.getString("themes", "day");
+//
+//        switch (savedTheme) {
+//            case "day":
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//                break;
+//            case "night":
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//                break;
+//            default:
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+//                break;
+//        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
@@ -67,16 +84,31 @@ public class Settings extends AppCompatActivity {
 
         });
 
-        viewModel.getThemeLiveData().observe(this,themes->{
-            recreate();
-        });
+
 
         languageLayout.setOnClickListener(v -> {
             showLanguageDialog();
         });
 
+        viewModel.getThemeLiveData().observe(this, themes -> {
+            switch (themes) {
+                case "day":
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    break;
+                case "night":
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    break;
+                default:
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                    break;
+            }
+            recreate();
+        });
+
+
         themeLayout.setOnClickListener(v->{
             showThemesDialog();
+
         });
 
 
@@ -106,9 +138,6 @@ public class Settings extends AppCompatActivity {
         });
 
         sigment2.setOnClickListener(v -> drawer_layout.openDrawer(navigationView));
-
-
-
 
 
 

@@ -1,12 +1,16 @@
 package com.example.notes.Class;
 
+import static android.content.Intent.getIntent;
+
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
 import com.example.notes.LocaleHelper;
+import com.example.notes.MainClass.MainActivity;
 
 public class MyApplication extends Application {
     @Override
@@ -19,6 +23,8 @@ public class MyApplication extends Application {
         super.onCreate();
         applyTheme();
         LocaleHelper.setLocale(this, LocaleHelper.getPersistedLanguage(this));
+
+
     }
 
     private void applyTheme(){
@@ -31,6 +37,7 @@ public class MyApplication extends Application {
                 break;
             case "night":
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                break;
             case "system":
             default:
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);

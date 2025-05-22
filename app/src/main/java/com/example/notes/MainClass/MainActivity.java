@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
         notesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         notesRecyclerView.setHasFixedSize(true);
 
@@ -170,6 +171,9 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+
+
 
 
 
