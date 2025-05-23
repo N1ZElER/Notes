@@ -39,6 +39,13 @@ public class MyApplication extends Application {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 break;
             case "system":
+                int currentNightMode = getResources().getConfiguration().uiMode & android.content.res.Configuration.UI_MODE_NIGHT_MASK;
+                if (currentNightMode == android.content.res.Configuration.UI_MODE_NIGHT_YES) {
+                } else if (currentNightMode == android.content.res.Configuration.UI_MODE_NIGHT_NO) {
+                } else {
+                }
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                break;
             default:
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
                 break;

@@ -28,6 +28,17 @@ public class EditNotesAcitivty extends AppCompatActivity {
         titleEditText = findViewById(R.id.titleEditText);
         contentEditText = findViewById(R.id.contentEditText);
 
+
+
+        titleEditText.requestFocus();
+        titleEditText.setSelection(titleEditText.getText().length());
+
+        contentEditText.requestFocus();
+        contentEditText.setSelection(contentEditText.getText().length());
+
+
+
+
         viewModel = new ViewModelProvider(this).get(EditNoteViewModel.class);
 
         int noteId = getIntent().getIntExtra(EXTRA_NOTE_ID, -1);

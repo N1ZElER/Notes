@@ -56,7 +56,6 @@
 
     <!-- Кнопки -->
     <string name="add_note">Add note</string>
-    <string name="note_count_hint">Count</string>
     <string name="delete_note">Delete note?</string>
     <string name="delete_context">Do you really want to delete this note?</string>
     <string name="nav_deistvie">Select an action</string>
@@ -66,6 +65,8 @@
     <string name="perm_delete">The note will be permanently deleted!</string>
 
 
+    <string name="note_count_hin1">Count notes:</string>
+
 
     <string name="choose_language">Choose language</string>
     <string name="language_russian">Russian</string>
@@ -73,6 +74,17 @@
     <string name="cancel">Cancel</string>
     <string name="current_language">Current language</string>
     <string name="current_themes">Current theme</string>
+    <string name="themes_day">Light</string>
+    <string name="themes_night">Night</string>
+    <string name="themes_system">Follow system</string>
+
+
+    <string-array name="themes_array">
+        <item>Light</item>
+        <item>Night</item>
+        <item>Follow system</item>
+    </string-array>
+
 
 
 </resources>

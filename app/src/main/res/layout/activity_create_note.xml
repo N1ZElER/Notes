@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
+    android:background="?attr/colorBackground"
     android:padding="16dp">
 
     <LinearLayout
@@ -21,28 +21,32 @@
         android:textCursorDrawable="@drawable/cursor_color"
         android:layout_height="wrap_content"
         android:textSize="24sp"
-        android:textColor="@color/black"
+        android:textColor="?attr/editTextColor"
         android:textStyle="bold"
-        android:background="@null"
+        android:background="?attr/colorBackground"
         android:inputType="text"
         android:hint="@string/nav_title"
         android:maxLines="1" />
+
 
     <EditText
         android:id="@+id/noteContent"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@android:color/transparent"
-        android:hint="@string/nav_text"
-        android:gravity="top"
-        android:inputType="textMultiLine"
-        android:textColor="@color/abc_primary_text_material_light"
         android:textCursorDrawable="@drawable/cursor_color"
+        android:layout_weight="1"
+        android:textColor="?attr/editTextColor"
+        android:hint="@string/nav_text"
+        android:background="?attr/colorBackground"
+        android:fontFamily="sans-serif"
+        android:gravity="top"
+        android:overScrollMode="always"
+        android:scrollbars="vertical"
         android:textSize="18sp" />
 
 
-<!--    <Button-->
+
+    <!--    <Button-->
 <!--        android:id="@+id/saveNoteButton"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->

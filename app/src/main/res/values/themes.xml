@@ -8,5 +8,6 @@
         <item name="colorOnSecondary">#000000</item>€
         <item name="colorBackground">#FFFFFF</item> <!-- 👈 ВАЖНО -->
         <item name="android:textColorPrimary">#000000</item>
+        <item name="editTextColor">@color/black</item>
     </style>
 </resources>

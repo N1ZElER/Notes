@@ -28,9 +28,7 @@ public class CreateNote extends AppCompatActivity {
         noteContent = findViewById(R.id.noteContent);
 
         noteTitle.requestFocus();
-
-        noteContent.setTextColor(Color.BLACK);
-        noteContent.setHintTextColor(Color.LTGRAY);
+        
 
         noteViewModel = new ViewModelProvider(this).get(NoteViewModel.class);
     }

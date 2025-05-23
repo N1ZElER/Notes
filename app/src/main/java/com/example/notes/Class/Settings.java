@@ -3,6 +3,7 @@ package com.example.notes.Class;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import com.example.notes.LocaleHelper;
 import android.view.MenuItem;
@@ -26,7 +27,7 @@ public class Settings extends AppCompatActivity {
 
     private DrawerLayout drawer_layout;
     private TextView languageText, themeText;
-    private String[] themes = {"Светлая", "Темная", "Как в системе"} ;
+    private String[] themes;
     private String[] languages = {"English", "Русский"};
     private String[] languageCodes = {"en", "ru",};
     private String[] ThemeCodes = {"day", "night", "system"};
@@ -71,11 +72,7 @@ public class Settings extends AppCompatActivity {
         loadThemesToUI();
 
 
-
         viewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
-
-
-
 
 
         viewModel.getLanguageLiveData().observe(this, lang ->{
@@ -98,6 +95,15 @@ public class Settings extends AppCompatActivity {
                 case "night":
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                     break;
+                case "system":
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                    int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+                    if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
+                        themeText.setText(getString(R.string.themes_night));
+                    } else {
+                        themeText.setText(getString(R.string.themes_day));
+                    }
+                    break;
                 default:
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
                     break;
@@ -110,9 +116,6 @@ public class Settings extends AppCompatActivity {
             showThemesDialog();
 
         });
-
-
-
 
         navigationView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
@@ -178,29 +181,37 @@ public class Settings extends AppCompatActivity {
 
     private void loadThemesToUI() {
         SharedPreferences prefs = getSharedPreferences("settings", Context.MODE_PRIVATE);
-        String savedThemes = prefs.getString("themes", "day");
-        if (savedThemes.equals("day")) {
-            themeText.setText(getString(R.string.themes_day));
-        } else {
-            if(savedThemes.equals("night")) {
+        String savedTheme = prefs.getString("themes", "system");
+
+        switch (savedTheme) {
+            case "day":
+                themeText.setText(getString(R.string.themes_day));
+                break;
+            case "night":
                 themeText.setText(getString(R.string.themes_night));
-            }else{
-                if(savedThemes.equals("system")){
-                    themeText.setText(R.string.themes_system);
-                }
-            }
+                break;
+            case "system":
+                themeText.setText(getString(R.string.themes_system));
+                break;
+            default:
+                themeText.setText(getString(R.string.themes_day));
+                break;
         }
     }
 
+
     private void showThemesDialog() {
+        String[] currentThemes = getResources().getStringArray(R.array.themes_array);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogFastStyling);
         builder.setTitle(getString(R.string.choose_themes));
-        builder.setItems(themes, (dialog, which) -> {
+        builder.setItems(currentThemes, (dialog, which) -> {
             viewModel.changeThemes(this, ThemeCodes[which]);
         });
         builder.setNegativeButton(getString(R.string.cancel), (dialog, which) -> {});
         builder.create().show();
     }
+
 
 
 

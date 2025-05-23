@@ -81,7 +81,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         noteViewModel.getAllNotes().observe(this, notes -> {
-            countNotes.setText("Заметок: " + (notes.size()));
+            String text = getString(R.string.note_count_hin1);
+
+            countNotes.setText(text+ " " + notes.size());
             adapter.setNotes(notes != null ? notes : new ArrayList<>());
         });
 
