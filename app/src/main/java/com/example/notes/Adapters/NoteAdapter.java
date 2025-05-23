@@ -1,5 +1,6 @@
 package com.example.notes.Adapters;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,6 +24,7 @@ import java.util.List;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> {
 
+    private boolean isCollapsed = false;
     private List<Note> notes;
     private List<Note> filterdNotes = new ArrayList<>();
 
@@ -43,6 +46,20 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         holder.titleTextView.setText(note.getTitle());
         holder.contentTextView.setText(note.getContent());
         holder.noteDateTextView.setText(note.getFormattedCreateTime());
+
+
+        if (isCollapsed) {
+            holder.itemView.getLayoutParams().width = dpToPx(holder.itemView.getContext(), 155);
+            holder.titleTextView.setVisibility(View.VISIBLE);
+            holder.contentTextView.setVisibility(View.VISIBLE);
+            holder.noteDateTextView.setVisibility(View.GONE);
+            holder.noteDetailsTextView.setVisibility(View.GONE);
+        } else {
+            holder.itemView.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
+            holder.titleTextView.setVisibility(View.VISIBLE);
+            holder.contentTextView.setVisibility(View.VISIBLE);
+            holder.noteDateTextView.setVisibility(View.VISIBLE);
+        }
 
 
         holder.itemView.setOnClickListener(v -> {
@@ -98,24 +115,38 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         notifyItemMoved(from, to);
     }
 
+    public void setCollapsed(boolean collapsed) {
+        this.isCollapsed = collapsed;
+    }
+    private int dpToPx(Context context, int dp) {
+        float density = context.getResources().getDisplayMetrics().density;
+        return Math.round(dp * density);
+    }
+
+
     public static class NoteViewHolder extends RecyclerView.ViewHolder {
 
         private TextView titleTextView;
         private TextView contentTextView;
+        private TextView noteDetailsTextView;
         private ImageButton pin;
         private ImageView pinnedIcon;
         private CheckBox box;
         private TextView noteDateTextView;
+        private LinearLayout noteRoot;
 
 
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
+            noteRoot = itemView.findViewById(R.id.noteRoot);
             titleTextView = itemView.findViewById(R.id.noteTitleTextView);
             contentTextView = itemView.findViewById(R.id.noteContentTextView);
             noteDateTextView = itemView.findViewById(R.id.noteDateTextView);
             pinnedIcon = itemView.findViewById(R.id.pinnedIcon);
+            noteDetailsTextView = itemView.findViewById(R.id.noteDetailsTextView);
 //            box = itemView.findViewById(R.id.box);
 //            pin = itemView.findViewById(R.id.pin);
+
         }
     }
 }

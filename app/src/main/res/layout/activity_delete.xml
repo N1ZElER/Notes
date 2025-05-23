@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/white"
+        android:background="?attr/colorBackground"
         android:padding="16dp">
 
         <TextView
@@ -20,7 +20,7 @@
             android:text="@string/recently_deleted"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:textColor="@color/black" />
+            android:background="?attr/colorBackground" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
             android:text="@string/delete_info"
-            android:textColor="@color/black"
+            android:background="?attr/colorBackground"
             android:textSize="14sp" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -92,7 +92,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/white"
+        android:background="?attr/colorBackground"
         app:menu="@menu/drawer_menu"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

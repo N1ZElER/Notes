@@ -1,11 +1,14 @@
 package com.example.notes.MainClass;
 
+import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -38,7 +41,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
+    private boolean isCollapsed = false;
     private NoteViewModel noteViewModel;
     private NoteAdapter adapter;
     private RecyclerView notesRecyclerView;
@@ -46,9 +49,10 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
     private Context context;
-    private ImageButton sigment,addNoteButton;
+    private ImageButton sigment,addNoteButton,razdel;
     private SearchView searchView;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawerLayout);
         sigment = findViewById(R.id.sigment);
         searchView = findViewById(R.id.searchView);
+        razdel = findViewById(R.id.razdel);
 
 //        SharedPreferences prefs = getSharedPreferences("settings", MODE_PRIVATE);
 //        String lang = prefs.getString("language", "ru");
@@ -174,8 +179,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-
+        razdel.setOnClickListener(v -> {
+            isCollapsed = !isCollapsed;
+            adapter.setCollapsed(isCollapsed);
+            adapter.notifyDataSetChanged();
+        });
 
 
     }
