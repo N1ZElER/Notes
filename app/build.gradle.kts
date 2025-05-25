@@ -46,4 +46,5 @@ dependencies {
     implementation ("androidx.appcompat:appcompat:1.3.1")
     implementation ("androidx.appcompat:appcompat:1.3.1")
     implementation ("androidx.recyclerview:recyclerview:1.2.1")
+
 }

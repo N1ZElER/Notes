@@ -1,13 +1,14 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <style name="Theme.Notes" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Цвета для светлой темы -->
-        <item name="colorPrimary">#6200EE</item>
-        <item name="colorPrimaryVariant">#3700B3</item>
+        <item name="colorPrimary">#DCDBE1</item>
+        <item name="colorPrimaryVariant">#FFFFFF</item>
         <item name="colorOnPrimary">#FFFFFF</item>
         <item name="colorSecondary">#03DAC5</item>
         <item name="colorOnSecondary">#000000</item>€
-        <item name="colorBackground">#FFFFFF</item> <!-- 👈 ВАЖНО -->
+        <item name="colorBackground">#FFFFFF</item>
         <item name="android:textColorPrimary">#000000</item>
         <item name="editTextColor">@color/black</item>
+        <item name="color">#747171</item>
+        <item name="colorSurface">@color/white</item>
     </style>
 </resources>

@@ -129,9 +129,9 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         private TextView titleTextView;
         private TextView contentTextView;
         private TextView noteDetailsTextView;
-        private ImageButton pin;
+//        private ImageButton pin;
         private ImageView pinnedIcon;
-        private CheckBox box;
+//        private CheckBox box;
         private TextView noteDateTextView;
         private LinearLayout noteRoot;
 

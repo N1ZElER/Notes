@@ -18,7 +18,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorSurface"
+            android:background="?attr/colorPrimaryVariant"
             android:elevation="4dp"
             android:padding="15dp"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
@@ -33,7 +33,7 @@
                     android:id="@+id/sigment2"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:background="?attr/colorBackground"
+                    android:background="?attr/colorPrimaryVariant"
                     android:src="@drawable/round_segment_24" />
 
                 <TextView

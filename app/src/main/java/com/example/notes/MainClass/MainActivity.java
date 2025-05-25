@@ -26,6 +26,7 @@ import com.example.notes.Class.Arhive;
 import com.example.notes.Class.Delete;
 import com.example.notes.Class.EditNotesAcitivty;
 import com.example.notes.Class.FileActivity;
+import com.example.notes.Class.MyApplication;
 import com.example.notes.LocaleHelper;
 import com.example.notes.Note;
 import com.example.notes.Adapters.NoteAdapter;
@@ -41,7 +42,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private boolean isCollapsed = false;
     private NoteViewModel noteViewModel;
     private NoteAdapter adapter;
     private RecyclerView notesRecyclerView;
@@ -57,6 +57,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        boolean isCollapsed = ((MyApplication) getApplication()).isCollapsed();
+
+
 
         notesRecyclerView = findViewById(R.id.notesRecyclerView);
         countNotes = findViewById(R.id.countNotes);
@@ -74,11 +79,13 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
         notesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         notesRecyclerView.setHasFixedSize(true);
 
 
         adapter = new NoteAdapter(new ArrayList<>());
+        adapter.setCollapsed(isCollapsed);
         notesRecyclerView.setAdapter(adapter);
 
 
@@ -180,9 +187,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         razdel.setOnClickListener(v -> {
-            isCollapsed = !isCollapsed;
-            adapter.setCollapsed(isCollapsed);
+            MyApplication app = (MyApplication) getApplication();
+            boolean newState = !app.isCollapsed();
+            app.setCollapsed(newState);
+
+            adapter.setCollapsed(newState);
             adapter.notifyDataSetChanged();
+
         });
 
 

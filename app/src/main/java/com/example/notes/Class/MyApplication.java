@@ -9,10 +9,16 @@ import android.content.SharedPreferences;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
+import com.example.notes.Adapters.NoteAdapter;
 import com.example.notes.LocaleHelper;
 import com.example.notes.MainClass.MainActivity;
 
+import java.util.ArrayList;
+
 public class MyApplication extends Application {
+
+    private boolean isCollapsed = false;
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(LocaleHelper.setLocale(base, LocaleHelper.getPersistedLanguage(base)));
@@ -51,4 +57,15 @@ public class MyApplication extends Application {
                 break;
         }
     }
+
+    public boolean isCollapsed() {
+        SharedPreferences prefs = getSharedPreferences("settings", MODE_PRIVATE);
+        return prefs.getBoolean("isCollapsed", false);
+    }
+
+    public void setCollapsed(boolean collapsed) {
+        SharedPreferences prefs = getSharedPreferences("settings", MODE_PRIVATE);
+        prefs.edit().putBoolean("isCollapsed", collapsed).apply();
+    }
+
 }

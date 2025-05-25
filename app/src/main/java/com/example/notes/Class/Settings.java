@@ -1,5 +1,6 @@
 package com.example.notes.Class;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,6 +16,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -38,6 +40,7 @@ public class Settings extends AppCompatActivity {
     private SettingsViewModel viewModel;
 
 
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -66,6 +69,10 @@ public class Settings extends AppCompatActivity {
         drawer_layout = findViewById(R.id.drawer_layout);
         languageLayout = findViewById(R.id.languageLayout);
         themeLayout = findViewById(R.id.themeLayout);
+        toolbar = findViewById(R.id.toolbar);
+
+
+
 
         // UI update
         loadLanguageToUI();
