@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.ActionMode;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -51,6 +54,10 @@ public class MainActivity extends AppCompatActivity {
     private Context context;
     private ImageButton sigment,addNoteButton,razdel;
     private SearchView searchView;
+    private ActionMode actionMode;
+    private int selectedNotePosition = -1;
+
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -75,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
 //        SharedPreferences prefs = getSharedPreferences("settings", MODE_PRIVATE);
 //        String lang = prefs.getString("language", "ru");
 //        LocaleHelper.setLocale(this, lang);
+
+
 
 
 
@@ -138,6 +147,13 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+        adapter.setOnNoteLongClickListener(position -> {
+            if (actionMode != null) {
+                return;
+            }
+            selectedNotePosition = position;
+            actionMode = startActionMode(actionModeCallback);
+        });
 
 
 
@@ -168,6 +184,39 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+         final ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                mode.getMenuInflater().inflate(R.menu.context_note_menu, menu);
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false; // nothing to update
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.action_delete) {
+//                    moveToRecentlyDeleted(selectedNotePosition);
+                    mode.finish();
+                    return true;
+                } else if (id == R.id.action_archive) {
+//                    archiveNote(selectedNotePosition);
+                    mode.finish();
+                    return true;
+                }
+                return false;
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+                actionMode = null;
+            }
+        };
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -212,6 +261,42 @@ public class MainActivity extends AppCompatActivity {
             });
         });
     }
+
+
+
+    private final ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            mode.getMenuInflater().inflate(R.menu.context_note_menu, menu);
+            return true;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false; // nothing to update
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            int id = item.getItemId();
+            if (id == R.id.action_delete) {
+//                moveToRecentlyDeleted(selectedNotePosition);
+                mode.finish();
+                return true;
+            } else if (id == R.id.action_archive) {
+//                archiveNote(selectedNotePosition);
+                mode.finish();
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            actionMode = null;
+        }
+    };
+
 
 
     public void showDeleteDialog(int position) {

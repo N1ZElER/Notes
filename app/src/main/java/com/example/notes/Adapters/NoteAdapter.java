@@ -3,6 +3,7 @@ package com.example.notes.Adapters;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,11 +27,16 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
     private boolean isCollapsed = false;
     private List<Note> notes;
-    private List<Note> filterdNotes = new ArrayList<>();
+    private List<Note> filteredNotes = new ArrayList<>();
+    private OnNoteLongClickListener longClickListener;
 
     public NoteAdapter(List<Note> notes) {
         this.notes = notes;
-        this.filterdNotes = new ArrayList<>(notes);
+        this.filteredNotes = new ArrayList<>(notes);
+    }
+
+    public void setOnNoteLongClickListener(OnNoteLongClickListener listener) {
+        this.longClickListener = listener;
     }
 
     @NonNull
@@ -42,7 +48,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
-        Note note = filterdNotes.get(position);
+        Note note = filteredNotes.get(position);
         holder.titleTextView.setText(note.getTitle());
         holder.contentTextView.setText(note.getContent());
         holder.noteDateTextView.setText(note.getFormattedCreateTime());
@@ -67,36 +73,48 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             intent.putExtra(EditNotesAcitivty.EXTRA_NOTE_ID, note.getId());
             v.getContext().startActivity(intent);
         });
+
+        holder.itemView.setOnLongClickListener(v -> {
+            if (longClickListener != null) {
+                longClickListener.onNoteLongClick(holder.getAdapterPosition());
+            }
+            return true;
+        });
     }
+
+    public interface OnNoteLongClickListener {
+        void onNoteLongClick(int position);
+    }
+
 
 
     @Override
     public int getItemCount() {
-        return filterdNotes != null ? filterdNotes.size() : 0;
+        return filteredNotes != null ? filteredNotes.size() : 0;
     }
 
     public void setNotes(List<Note> notes) {
         if (notes != null) {
             this.notes = new ArrayList<>(notes);
-            this.filterdNotes = new ArrayList<>(notes);
+            this.filteredNotes = new ArrayList<>(notes);
         } else {
             this.notes = new ArrayList<>();
-            this.filterdNotes = new ArrayList<>();
+            this.filteredNotes = new ArrayList<>();
         }
         notifyDataSetChanged();
     }
 
 
     public void filterNotes(String query) {
-        filterdNotes.clear();
+        filteredNotes.clear();
         if (query == null || query.isEmpty()) {
-            filterdNotes.addAll(notes);
+            filteredNotes.addAll(notes);
         } else {
             String lowerCaseQuery = query.toLowerCase();
             for (Note note : notes) {
                 if (note.getTitle().toLowerCase().contains(lowerCaseQuery) ||
                         note.getContent().toLowerCase().contains(lowerCaseQuery)) {
-                    filterdNotes.add(note);
+                    filteredNotes.add(note);
                 }
             }
         }
@@ -108,10 +126,10 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     }
 
     public void moveItem(int from, int to) {
-        if (from < 0 || to < 0 || from >= filterdNotes.size() || to >= filterdNotes.size()) return;
+        if (from < 0 || to < 0 || from >= filteredNotes.size() || to >= filteredNotes.size()) return;
 
-        Note movedNote = filterdNotes.remove(from);
-        filterdNotes.add(to, movedNote);
+        Note movedNote = filteredNotes.remove(from);
+        filteredNotes.add(to, movedNote);
         notifyItemMoved(from, to);
     }
 
