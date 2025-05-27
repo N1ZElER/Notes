@@ -17,7 +17,6 @@ public class NoteViewModel extends AndroidViewModel {
     private NoteRepository repository;
     private MutableLiveData<List<Note>> notes = new MutableLiveData<>();
     private LiveData<List<Note>> allNotes;
-    private NoteRepository noteRepository = new NoteRepository(this.getApplication());
 
     public NoteViewModel(@NonNull Application application) {
         super(application);
@@ -37,15 +36,9 @@ public class NoteViewModel extends AndroidViewModel {
         return notes;
     }
 
-    public void addNote(String title, String content){
-        int id = noteRepository.getNotes().size() + 1;
-        Note note = new Note(id,content,title);
-        noteRepository.addNote(note);
-        notes.setValue(noteRepository.getNotes());
+    public void delete(Note note){
+        repository.delete(note);
     }
 
-    public void loadNotes(){
-        notes.setValue(noteRepository.getNotes());
-    }
 
 }

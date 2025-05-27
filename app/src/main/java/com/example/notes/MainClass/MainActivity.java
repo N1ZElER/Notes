@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -140,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean isLongPressDragEnabled() {
-                return true;  // перетаскивания долгим зажатием
+                return true;  // move to long click
             }
         });
         itemTouchHelperMove.attachToRecyclerView(notesRecyclerView);
@@ -167,10 +168,9 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, SpravkaAndOzevs.class);
                 startActivity(intent);
             } else if (id == R.id.nav_folder) {
-                startActivity(new Intent(MainActivity.this, FileActivity.class));
+                Toast.makeText(this,"В Разработке",Toast.LENGTH_SHORT).show();
             } else if (id == R.id.nav_arhive) {
-                Intent intent = new Intent(MainActivity.this, Arhive.class);
-                startActivity(intent);
+                Toast.makeText(this,"В Разработке",Toast.LENGTH_SHORT).show();
             } else if (id == R.id.nav_dell) {
                 Intent intent = new Intent(MainActivity.this, Delete.class);
                 startActivity(intent);
@@ -280,7 +280,7 @@ public class MainActivity extends AppCompatActivity {
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
             int id = item.getItemId();
             if (id == R.id.action_delete) {
-//                moveToRecentlyDeleted(selectedNotePosition);
+                moveToRecentlyDeleted(selectedNotePosition);
                 mode.finish();
                 return true;
             } else if (id == R.id.action_archive) {
@@ -315,16 +315,16 @@ public class MainActivity extends AppCompatActivity {
     public void moveToRecentlyDeleted(int position) {
         if (position >= 0 && position < adapter.getItemCount()) {
             Note note = adapter.getNoteAt(position);
-            note.setDeleted(true); // Устанавливаем статус заметки как удалённый
+            note.setDeleted(true); // set status note - delete
 
 
-            // Обновляем данные в базе данных (перемещаем в корзину)
+            // notify to DataBase
             AsyncTask.execute(() -> {
                 NoteDatabase db = NoteDatabase.getInstance(getApplicationContext());
-                db.noteDao().moveToTrash(note.getId()); // Перемещаем заметку в корзину в базе данных
+                noteViewModel.delete(note); // delete in DataBase
             });
 
-            // Уведомляем адаптер, что элемент был удалён
+            // Notify adapter
             runOnUiThread(() -> {
                 adapter.notifyItemRemoved(position);
                 updateNotesCount(adapter.getItemCount());
@@ -333,14 +333,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // обновления менюшки
+    // notify menu
     @Override
     protected void onResume() {
         super.onResume();
         updateCheckedItem();
     }
 
-    // обновления менюшки
+    // notify menu
     private void updateCheckedItem() {
         MenuItem item = navigationView.getMenu().findItem(getCheckedItemId());
         if (item != null) {
@@ -348,7 +348,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // обновления менюшки
+    // notify menu
     private int getCheckedItemId() {
         String currentActivity = this.getClass().getSimpleName();
         switch (currentActivity) {
