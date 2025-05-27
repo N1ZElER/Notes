@@ -25,7 +25,7 @@ This is an Android application for creating, editing, and managing notes. It all
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/N1ZElER/Notes_New.git
+    git clone https://github.com/N1ZElER/Notes.git
     ```
 2. Open the project in Android Studio.
 3. Make sure all necessary dependencies are installed.
