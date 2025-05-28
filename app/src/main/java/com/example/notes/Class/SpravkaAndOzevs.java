@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,10 +49,9 @@ public class SpravkaAndOzevs extends AppCompatActivity {
             } else if (id == R.id.nav_ozevs) {
                 drawerLayout.closeDrawers();
             } else if (id == R.id.nav_folder) {
-                startActivity(new Intent(SpravkaAndOzevs.this, FileActivity.class));
+                Toast.makeText(this,"В Разработке", Toast.LENGTH_SHORT).show();
             } else if (id == R.id.nav_arhive) {
-                Intent intent = new Intent(SpravkaAndOzevs.this, Arhive.class);
-                startActivity(intent);
+                Toast.makeText(this,"В Разработке", Toast.LENGTH_SHORT).show();
             } else if (id == R.id.nav_dell) {
                 Intent intent = new Intent(SpravkaAndOzevs.this, Delete.class);
                 startActivity(intent);

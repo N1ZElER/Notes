@@ -77,6 +77,7 @@
     <string name="themes_day">Light</string>
     <string name="themes_night">Night</string>
     <string name="themes_system">Follow system</string>
+    <string name="notifycaton_delete">Note is deleted</string>
 
 
     <string-array name="themes_array">

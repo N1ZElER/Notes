@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,10 +49,9 @@ public class Delete extends AppCompatActivity {
                 Intent intent = new Intent(Delete.this, SpravkaAndOzevs.class);
                 startActivity(intent);
             } else if (id == R.id.nav_folder) {
-                startActivity(new Intent(Delete.this, FileActivity.class));
+                Toast.makeText(this,"В Разработке", Toast.LENGTH_SHORT).show();
             } else if (id == R.id.nav_arhive) {
-                Intent intent = new Intent(Delete.this, Arhive.class);
-                startActivity(intent);
+                Toast.makeText(this,"В Разработке", Toast.LENGTH_SHORT).show();
             } else if (id == R.id.nav_dell) {
                 drawerLayout.closeDrawers();
             }

@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        context = this;
 
 
         boolean isCollapsed = ((MyApplication) getApplication()).isCollapsed();
@@ -79,14 +80,6 @@ public class MainActivity extends AppCompatActivity {
         sigment = findViewById(R.id.sigment);
         searchView = findViewById(R.id.searchView);
         razdel = findViewById(R.id.razdel);
-
-//        SharedPreferences prefs = getSharedPreferences("settings", MODE_PRIVATE);
-//        String lang = prefs.getString("language", "ru");
-//        LocaleHelper.setLocale(this, lang);
-
-
-
-
 
 
 
@@ -168,9 +161,9 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, SpravkaAndOzevs.class);
                 startActivity(intent);
             } else if (id == R.id.nav_folder) {
-                Toast.makeText(this,"В Разработке",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,"В Разработке",Toast.LENGTH_SHORT).show();
             } else if (id == R.id.nav_arhive) {
-                Toast.makeText(this,"В Разработке",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,"В Разработке",Toast.LENGTH_SHORT).show();
             } else if (id == R.id.nav_dell) {
                 Intent intent = new Intent(MainActivity.this, Delete.class);
                 startActivity(intent);
@@ -183,40 +176,6 @@ public class MainActivity extends AppCompatActivity {
         sigment.setOnClickListener(v -> drawerLayout.openDrawer(navigationView));
 
 
-
-
-         final ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
-            @Override
-            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                mode.getMenuInflater().inflate(R.menu.context_note_menu, menu);
-                return true;
-            }
-
-            @Override
-            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                return false; // nothing to update
-            }
-
-            @Override
-            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                int id = item.getItemId();
-                if (id == R.id.action_delete) {
-//                    moveToRecentlyDeleted(selectedNotePosition);
-                    mode.finish();
-                    return true;
-                } else if (id == R.id.action_archive) {
-//                    archiveNote(selectedNotePosition);
-                    mode.finish();
-                    return true;
-                }
-                return false;
-            }
-
-            @Override
-            public void onDestroyActionMode(ActionMode mode) {
-                actionMode = null;
-            }
-        };
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -244,8 +203,6 @@ public class MainActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
 
         });
-
-
     }
 
 
@@ -253,7 +210,6 @@ public class MainActivity extends AppCompatActivity {
         AsyncTask.execute(()->{
             NoteDatabase db = NoteDatabase.getInstance(getApplicationContext());
             List<Note> notes = db.noteDao().getDeletedNotes();
-            adapter.notifyDataSetChanged();
 
             runOnUiThread(() -> {
                 adapter.setNotes(notes != null ? notes : new ArrayList<>());
@@ -313,6 +269,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void moveToRecentlyDeleted(int position) {
+        String text = getString(R.string.notifycaton_delete);
         if (position >= 0 && position < adapter.getItemCount()) {
             Note note = adapter.getNoteAt(position);
             note.setDeleted(true); // set status note - delete
@@ -328,6 +285,7 @@ public class MainActivity extends AppCompatActivity {
             runOnUiThread(() -> {
                 adapter.notifyItemRemoved(position);
                 updateNotesCount(adapter.getItemCount());
+                Toast.makeText(context,text,Toast.LENGTH_SHORT).show();
                 loadNotes();
             });
         }

@@ -58,6 +58,8 @@
     <string name="nav_deistvie_info">Вы хотите удалить/восстановить заметку?</string>
     <string name="nav_deistvie_info2">Вы действительно хотите удалить заметку?</string>
     <string name="perm_delete">Заметка будет удалена без возвратно!</string>
+    <string name="notifycaton_delete">Заметка удалена</string>
+
 
 
     <string name="restore">Восстановить</string>

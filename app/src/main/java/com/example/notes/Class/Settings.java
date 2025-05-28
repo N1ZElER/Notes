@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -134,10 +135,9 @@ public class Settings extends AppCompatActivity {
                 Intent intent = new Intent(Settings.this, SpravkaAndOzevs.class);
                 startActivity(intent);
             } else if (id == R.id.nav_folder) {
-                startActivity(new Intent(Settings.this, FileActivity.class));
+                Toast.makeText(this,"В Разработке", Toast.LENGTH_SHORT).show();
             } else if (id == R.id.nav_arhive) {
-                Intent intent = new Intent(Settings.this, Arhive.class);
-                startActivity(intent);
+                Toast.makeText(this,"В Разработке", Toast.LENGTH_SHORT).show();
             } else if (id == R.id.nav_dell) {
                 Intent intent = new Intent(Settings.this, Delete.class);
                 startActivity(intent);
