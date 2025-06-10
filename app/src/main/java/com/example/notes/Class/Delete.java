@@ -51,7 +51,8 @@ public class Delete extends AppCompatActivity {
             } else if (id == R.id.nav_folder) {
                 Toast.makeText(this,"В Разработке", Toast.LENGTH_SHORT).show();
             } else if (id == R.id.nav_arhive) {
-                Toast.makeText(this,"В Разработке", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Delete.this,Arhive.class);
+                startActivity(intent);
             } else if (id == R.id.nav_dell) {
                 drawerLayout.closeDrawers();
             }

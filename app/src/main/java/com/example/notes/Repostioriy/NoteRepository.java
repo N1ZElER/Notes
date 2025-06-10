@@ -11,17 +11,22 @@ import com.example.notes.NoteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
 
 public class NoteRepository{
     private NoteDao noteDao;
     private LiveData<List<Note>> allNotes;
     private List<Note> notes = new ArrayList<>();
+
+
     public NoteRepository(Application application){
         NoteDatabase database = NoteDatabase.getInstance(application);
         noteDao = database.noteDao();
         allNotes = noteDao.getAllNotes();
 
     }
+
+
     public void insert(Note note){
         new InsertNoteAsyncTask(noteDao).execute(note);
     }
@@ -42,6 +47,9 @@ public class NoteRepository{
         return noteDao.getNoteById(id);
     }
 
+    public void deleteNotes(List<Note> notes) {
+        Executors.newSingleThreadExecutor().execute(() -> noteDao.deleteNotes(notes));
+    }
 
 
 
@@ -91,10 +99,6 @@ public class NoteRepository{
             noteDao.delete(notes[0]);
             return null;
         }
-    }
-
-    public void addNote(Note note){
-        notes.add(note);
     }
 
     public List<Note> getNotes(){

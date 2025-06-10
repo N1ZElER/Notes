@@ -9,12 +9,11 @@ import androidx.room.RoomDatabase;
 import com.example.notes.Migration.Migration_1_2;
 
 
-@Database(entities = {Note.class}, version = 4)
+@Database(entities = {Note.class}, version = 3)
 public abstract class NoteDatabase extends RoomDatabase {
     private static NoteDatabase instance;
 
     public abstract NoteDao noteDao();
-//    public abstract FolderDao folderDao();
 
     public static synchronized NoteDatabase getInstance(Context context) {
         if (instance == null) {

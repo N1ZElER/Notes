@@ -3,4 +3,5 @@
 
     <attr name="colorBackground" format="color" />
     <attr name="colorNote" format="color" />
+
 </resources>

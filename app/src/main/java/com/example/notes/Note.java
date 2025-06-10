@@ -20,24 +20,16 @@ public class Note implements Parcelable {
     private String title;
     private String content;
     private long createTime;
-    private boolean isBox;
     private String folderPath;
-
-    @ColumnInfo(name = "is_pinned")
-    private boolean isPinned;
-    private boolean isArchived;
     private boolean isDeleted;
 
 
     // Конструктор
-    public Note(String title, String content, long createTime, boolean isPinned, boolean isBox, String folderPath, boolean isArchived,int id, boolean isDeleted) {
+    public Note(String title, String content, long createTime, String folderPath, int id, boolean isDeleted) {
         this.title = title;
         this.content = content;
         this.createTime = createTime;
-        this.isPinned = isPinned;
-        this.isBox = isBox;
         this.folderPath = folderPath;
-        this.isArchived = isArchived;
         this.isDeleted = isDeleted;
         this.id = id;
     }
@@ -47,10 +39,7 @@ public class Note implements Parcelable {
         this.title = title;
         this.content = content;
         this.createTime = System.currentTimeMillis();
-        this.isPinned = false;
-        this.isBox = false;
         this.folderPath = null;
-        this.isArchived = false;
         this.isDeleted = false;
     }
 
@@ -60,25 +49,19 @@ public class Note implements Parcelable {
         this.title = title;
         this.content = content;
         this.createTime = createTime;
-        this.isPinned = false;
-        this.isBox = false;
         this.folderPath = null;
-        this.isArchived = false;
     }
 
-    // Конструктор для Parcel
+    // Designer for Parcel
     protected Note(Parcel in) {
         id = in.readInt();
         title = in.readString();
         content = in.readString();
         createTime = in.readLong();
-        isBox = in.readByte() != 0;
         folderPath = in.readString();
-        isPinned = in.readByte() != 0;
-        isArchived = in.readByte() != 0;
     }
 
-    // Создание экземпляров через Parcelable.Creator
+    // Creating instances via Parcelable.Creator
     public static final Creator<Note> CREATOR = new Creator<Note>() {
         @Override
         public Note createFromParcel(Parcel in) {
@@ -94,13 +77,13 @@ public class Note implements Parcelable {
 
 
 
-    // Метод для форматирования времени создания
+    // A method for formatting the creation time
     public String getFormattedCreateTime() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
         return dateFormat.format(new Date(createTime));
     }
 
-    // Геттеры и сеттеры
+    // Getter and Setter
     public int getId() {
         return id;
     }
@@ -128,54 +111,23 @@ public class Note implements Parcelable {
     public long getCreateTime() {
         return createTime;
     }
-
-    public void setCreateTime(long createTime) {
-        this.createTime = createTime;
-    }
-
-    public boolean isPinned() {
-        return isPinned;
-    }
-
-    public void setPinned(boolean pinned) {
-        isPinned = pinned;
-    }
-
-    public boolean isBox() {
-        return isBox;
-    }
-
-    public void setBox(boolean box) {
-        this.isBox = box;
-    }
-
     public String getFolderPath() {
         return folderPath;
     }
 
-    public void setFolderPath(String folderPath) {
-        this.folderPath = folderPath;
-    }
 
-    public boolean isArchived() {
-        return isArchived;
-    }
-
-    public void setArchived(boolean archived) {
-        isArchived = archived;
-    }
-
-    // Реализация Parcelable
+    // Realez Parcelable
     @Override
     public int describeContents() {
         return 0;
     }
 
-    public boolean isDeleted(){
+    public boolean isDeleted() {
         return isDeleted;
     }
-    public void setDeleted(boolean deleted){
-        isDeleted = deleted;
+
+    public void setDeleted(boolean deleted) {
+        this.isDeleted = deleted;
     }
 
     @Override
@@ -184,9 +136,6 @@ public class Note implements Parcelable {
         dest.writeString(title);
         dest.writeString(content);
         dest.writeLong(createTime);
-        dest.writeByte((byte) (isBox ? 1 : 0));
         dest.writeString(folderPath != null ? folderPath : "");
-        dest.writeByte((byte) (isPinned ? 1 : 0));
-        dest.writeByte((byte) (isArchived ? 1 : 0));
     }
 }

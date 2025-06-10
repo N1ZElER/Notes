@@ -3,8 +3,10 @@ package com.example.notes.Adapters;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +17,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.notes.Class.EditNotesAcitivty;
 import com.example.notes.Note;
 import com.example.notes.NoteDatabase;
 import com.example.notes.R;
+import com.example.notes.ViewModels.NoteViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,16 +33,24 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
     private boolean isCollapsed = false;
     private List<Note> notes;
+    private NoteViewModel noteViewModel;
     private List<Note> filteredNotes = new ArrayList<>();
     private OnNoteLongClickListener longClickListener;
+    private boolean selectionMode = false;
 
-    public NoteAdapter(List<Note> notes) {
+
+
+
+
+    public NoteAdapter(List<Note> notes,NoteViewModel noteViewModel) {
         this.notes = notes;
         this.filteredNotes = new ArrayList<>(notes);
+        this.noteViewModel = noteViewModel;
     }
 
-    public void setOnNoteLongClickListener(OnNoteLongClickListener listener) {
-        this.longClickListener = listener;
+
+    public void setSelectionMode(boolean isSelectionMode) {
+        this.selectionMode = isSelectionMode;
     }
 
     @NonNull
@@ -56,6 +68,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         holder.noteDateTextView.setText(note.getFormattedCreateTime());
 
 
+
+
         if (isCollapsed) {
             holder.itemView.getLayoutParams().width = dpToPx(holder.itemView.getContext(), 155);
             holder.titleTextView.setVisibility(View.VISIBLE);
@@ -70,18 +84,38 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         }
 
 
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(v.getContext(), EditNotesAcitivty.class);
-            intent.putExtra(EditNotesAcitivty.EXTRA_NOTE_ID, note.getId());
-            v.getContext().startActivity(intent);
-        });
 
         holder.itemView.setOnLongClickListener(v -> {
             if (longClickListener != null) {
                 longClickListener.onNoteLongClick(holder.getAdapterPosition());
             }
+            if (Boolean.FALSE.equals(noteViewModel.isSelectionMode().getValue())) {
+                noteViewModel.startSelection();
+            }
+            noteViewModel.toggleSelection(note);
+            notifyItemChanged(position);
             return true;
         });
+
+        holder.itemView.setOnClickListener(v -> {
+            if (Boolean.TRUE.equals(noteViewModel.isSelectionMode().getValue())) {
+                noteViewModel.toggleSelection(note);
+                notifyItemChanged(position);
+
+                List<Note> selected = noteViewModel.getSelectedNotes().getValue();
+                if (selected == null || selected.isEmpty()) {
+                    noteViewModel.clearSelection();
+                    notifyDataSetChanged();
+                }
+            } else {
+                Intent intent = new Intent(v.getContext(), EditNotesAcitivty.class);
+                intent.putExtra(EditNotesAcitivty.EXTRA_NOTE_ID, note.getId());
+                v.getContext().startActivity(intent);
+            }
+        });
+
+
+
     }
 
     public interface OnNoteLongClickListener {
@@ -144,16 +178,18 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     }
 
 
+
+
     public static class NoteViewHolder extends RecyclerView.ViewHolder {
+
 
         private TextView titleTextView;
         private TextView contentTextView;
         private TextView noteDetailsTextView;
-//        private ImageButton pin;
         private ImageView pinnedIcon;
-//        private CheckBox box;
         private TextView noteDateTextView;
         private LinearLayout noteRoot;
+        private CheckBox box;
 
 
         public NoteViewHolder(@NonNull View itemView) {
@@ -164,9 +200,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             noteDateTextView = itemView.findViewById(R.id.noteDateTextView);
             pinnedIcon = itemView.findViewById(R.id.pinnedIcon);
             noteDetailsTextView = itemView.findViewById(R.id.noteDetailsTextView);
-//            box = itemView.findViewById(R.id.box);
-//            pin = itemView.findViewById(R.id.pin);
-
+            box = itemView.findViewById(R.id.box);
         }
     }
 }

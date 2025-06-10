@@ -81,18 +81,20 @@ public class MainActivity extends AppCompatActivity {
         searchView = findViewById(R.id.searchView);
         razdel = findViewById(R.id.razdel);
 
+        noteViewModel = new ViewModelProvider(this).get(NoteViewModel.class);
+
 
 
         notesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         notesRecyclerView.setHasFixedSize(true);
 
 
-        adapter = new NoteAdapter(new ArrayList<>());
+        adapter = new NoteAdapter(new ArrayList<>(), noteViewModel);
         adapter.setCollapsed(isCollapsed);
         notesRecyclerView.setAdapter(adapter);
 
 
-        noteViewModel = new ViewModelProvider(this).get(NoteViewModel.class);
+
 
 
         noteViewModel.getAllNotes().observe(this, notes -> {
@@ -107,6 +109,8 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, CreateNote.class);
             startActivity(intent);
         });
+
+
 
         ItemTouchHelper itemTouchHelperMove = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
                 ItemTouchHelper.UP | ItemTouchHelper.DOWN,ItemTouchHelper.LEFT | 0) { // Разрешаем двигать вверх и вниз
@@ -140,17 +144,6 @@ public class MainActivity extends AppCompatActivity {
         itemTouchHelperMove.attachToRecyclerView(notesRecyclerView);
 
 
-
-        adapter.setOnNoteLongClickListener(position -> {
-            if (actionMode != null) {
-                return;
-            }
-            selectedNotePosition = position;
-            actionMode = startActionMode(actionModeCallback);
-        });
-
-
-
         navigationView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.nav_settings) {
@@ -163,7 +156,8 @@ public class MainActivity extends AppCompatActivity {
             } else if (id == R.id.nav_folder) {
                 Toast.makeText(context,"В Разработке",Toast.LENGTH_SHORT).show();
             } else if (id == R.id.nav_arhive) {
-                Toast.makeText(context,"В Разработке",Toast.LENGTH_SHORT).show();
+               Intent intent = new Intent(MainActivity.this,Arhive.class);
+               startActivity(intent);
             } else if (id == R.id.nav_dell) {
                 Intent intent = new Intent(MainActivity.this, Delete.class);
                 startActivity(intent);
@@ -203,22 +197,25 @@ public class MainActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
 
         });
-    }
 
+        noteViewModel.getSelectedNotes().observe(this, selected -> {
+            adapter.notifyDataSetChanged();
 
-    private void loadNotes(){
-        AsyncTask.execute(()->{
-            NoteDatabase db = NoteDatabase.getInstance(getApplicationContext());
-            List<Note> notes = db.noteDao().getDeletedNotes();
+            if (!selected.isEmpty() && actionMode == null) {
+                actionMode = startActionMode(actionModeCallback);
+            }
 
-            runOnUiThread(() -> {
-                adapter.setNotes(notes != null ? notes : new ArrayList<>());
-                updateNotesCount(adapter.getItemCount());
-            });
+            if (selected.isEmpty() && actionMode != null) {
+                actionMode.finish();
+            }
         });
+
+
+        noteViewModel.isSelectionMode().observe(this, mode -> {
+            adapter.setSelectionMode(mode);
+        });
+
     }
-
-
 
     private final ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
         @Override
@@ -236,11 +233,11 @@ public class MainActivity extends AppCompatActivity {
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
             int id = item.getItemId();
             if (id == R.id.action_delete) {
-                moveToRecentlyDeleted(selectedNotePosition);
+                noteViewModel.deleteSelectedNotes();
                 mode.finish();
                 return true;
             } else if (id == R.id.action_archive) {
-//                archiveNote(selectedNotePosition);
+                arhiveted(selectedNotePosition);
                 mode.finish();
                 return true;
             }
@@ -250,46 +247,41 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onDestroyActionMode(ActionMode mode) {
             actionMode = null;
+            noteViewModel.clearSelection();
         }
     };
-
-
 
     public void showDeleteDialog(int position) {
         if (position == RecyclerView.NO_POSITION) {
             return;
         }
+        Note noteToDelete = adapter.getNoteAt(position);
         new AlertDialog.Builder(context = this, R.style.AlertDialogFastStyling)
                 .setTitle(context.getString(R.string.delete_note))
                 .setMessage(context.getString(R.string.delete_context))
-                .setPositiveButton(context.getString(R.string.action_delete), (dialog, which) -> moveToRecentlyDeleted(position))
+                .setPositiveButton(context.getString(R.string.action_delete), (dialog, which) -> noteViewModel.delete(noteToDelete))
                 .setNegativeButton(context.getString(R.string.cancel), (dialog, which) -> adapter.notifyItemChanged(position))
                 .setCancelable(false)
                 .show();
     }
 
-    public void moveToRecentlyDeleted(int position) {
-        String text = getString(R.string.notifycaton_delete);
-        if (position >= 0 && position < adapter.getItemCount()) {
-            Note note = adapter.getNoteAt(position);
-            note.setDeleted(true); // set status note - delete
-
-
-            // notify to DataBase
-            AsyncTask.execute(() -> {
-                NoteDatabase db = NoteDatabase.getInstance(getApplicationContext());
-                noteViewModel.delete(note); // delete in DataBase
-            });
-
-            // Notify adapter
-            runOnUiThread(() -> {
-                adapter.notifyItemRemoved(position);
-                updateNotesCount(adapter.getItemCount());
-                Toast.makeText(context,text,Toast.LENGTH_SHORT).show();
-                loadNotes();
-            });
-        }
+    private void updateNotesCount(int count) {
+        countNotes.setText(getResources().getQuantityString(R.plurals.note_count, count, count));
     }
+
+    private void arhiveted(int position){
+        if (position < 0 || position >= adapter.getItemCount()) return;
+
+        Note note = adapter.getNoteAt(position);
+        note.setDeleted(true);
+
+        AsyncTask.execute(() -> {
+            NoteDatabase db = NoteDatabase.getInstance(getApplicationContext());
+            noteViewModel.update(note);
+        });
+    }
+
+
 
     // notify menu
     @Override
@@ -326,9 +318,4 @@ public class MainActivity extends AppCompatActivity {
                 return R.id.nav_home;
         }
     }
-
-    private void updateNotesCount(int count) {
-        countNotes.setText(getResources().getQuantityString(R.plurals.note_count, count, count));
-    }
 }
-

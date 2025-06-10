@@ -84,6 +84,13 @@
             android:src="@drawable/ic_pin"
             android:visibility="gone" />
 
+        <CheckBox
+            android:id="@+id/box"
+            android:layout_width="40dp"
+            android:layout_height="35dp"
+            android:visibility="gone"/>
+
+
         <TextView
             android:id="@+id/noteDateTextView"
             android:layout_width="wrap_content"

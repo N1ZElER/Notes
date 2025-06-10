@@ -30,7 +30,6 @@ public class Settings extends AppCompatActivity {
 
     private DrawerLayout drawer_layout;
     private TextView languageText, themeText;
-    private String[] themes;
     private String[] languages = {"English", "Русский"};
     private String[] languageCodes = {"en", "ru",};
     private String[] ThemeCodes = {"day", "night", "system"};
@@ -44,22 +43,6 @@ public class Settings extends AppCompatActivity {
     @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-//        SharedPreferences prefs = getSharedPreferences("settings", Context.MODE_PRIVATE);
-//        String savedTheme = prefs.getString("themes", "day");
-//
-//        switch (savedTheme) {
-//            case "day":
-//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-//                break;
-//            case "night":
-//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//                break;
-//            default:
-//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-//                break;
-//        }
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
@@ -137,7 +120,8 @@ public class Settings extends AppCompatActivity {
             } else if (id == R.id.nav_folder) {
                 Toast.makeText(this,"В Разработке", Toast.LENGTH_SHORT).show();
             } else if (id == R.id.nav_arhive) {
-                Toast.makeText(this,"В Разработке", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Settings.this,Arhive.class);
+                startActivity(intent);
             } else if (id == R.id.nav_dell) {
                 Intent intent = new Intent(Settings.this, Delete.class);
                 startActivity(intent);
@@ -160,7 +144,6 @@ public class Settings extends AppCompatActivity {
         SharedPreferences preferences = newBase.getSharedPreferences("settings", Context.MODE_PRIVATE);
         String lang = preferences.getString("language","ru");
         Context context = LocaleHelper.setLocale(newBase,lang);
-//        super.attachBaseContext(LocaleHelper.setLocale(newBase, LocaleHelper.getPersistedLanguage(newBase)));
         super.attachBaseContext(context);
     }
 
@@ -185,6 +168,19 @@ public class Settings extends AppCompatActivity {
         builder.create().show();
     }
 
+    private void showThemesDialog() {
+        String[] currentThemes = getResources().getStringArray(R.array.themes_array);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogFastStyling);
+        builder.setTitle(getString(R.string.choose_themes));
+        builder.setItems(currentThemes, (dialog, which) -> {
+            viewModel.changeThemes(this, ThemeCodes[which]);
+        });
+        builder.setNegativeButton(getString(R.string.cancel), (dialog, which) -> {});
+        builder.create().show();
+    }
+
+
 
     private void loadThemesToUI() {
         SharedPreferences prefs = getSharedPreferences("settings", Context.MODE_PRIVATE);
@@ -205,24 +201,6 @@ public class Settings extends AppCompatActivity {
                 break;
         }
     }
-
-
-    private void showThemesDialog() {
-        String[] currentThemes = getResources().getStringArray(R.array.themes_array);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogFastStyling);
-        builder.setTitle(getString(R.string.choose_themes));
-        builder.setItems(currentThemes, (dialog, which) -> {
-            viewModel.changeThemes(this, ThemeCodes[which]);
-        });
-        builder.setNegativeButton(getString(R.string.cancel), (dialog, which) -> {});
-        builder.create().show();
-    }
-
-
-
-
-
 
     // обновления менюшки
     @Override

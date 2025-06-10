@@ -51,7 +51,8 @@ public class SpravkaAndOzevs extends AppCompatActivity {
             } else if (id == R.id.nav_folder) {
                 Toast.makeText(this,"В Разработке", Toast.LENGTH_SHORT).show();
             } else if (id == R.id.nav_arhive) {
-                Toast.makeText(this,"В Разработке", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(SpravkaAndOzevs.this,Arhive.class);
+                startActivity(intent);
             } else if (id == R.id.nav_dell) {
                 Intent intent = new Intent(SpravkaAndOzevs.this, Delete.class);
                 startActivity(intent);

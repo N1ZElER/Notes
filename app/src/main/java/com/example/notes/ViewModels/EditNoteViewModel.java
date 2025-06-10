@@ -19,9 +19,6 @@ public class EditNoteViewModel extends AndroidViewModel {
         repository = new NoteRepository(application);
     }
 
-    public LiveData<Note> getNoteById(int id){
-        return repository.getNoteById(id);
-    }
 
     public void loadNoteById(int noteId) {
         note = repository.getNoteById(noteId);
@@ -29,10 +26,6 @@ public class EditNoteViewModel extends AndroidViewModel {
 
     public LiveData<Note> getNote(){
         return note;
-    }
-
-    public void updateNote(Note note){
-        repository.update(note);
     }
 
     public void saveNote(Note note){
