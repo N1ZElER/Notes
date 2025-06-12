@@ -47,6 +47,10 @@ public class NoteRepository{
         return noteDao.getNoteById(id);
     }
 
+    public LiveData<List<Note>> getAllNotesPinned(){
+        return noteDao.getAllNotesPinned();
+    }
+
     public void deleteNotes(List<Note> notes) {
         Executors.newSingleThreadExecutor().execute(() -> noteDao.deleteNotes(notes));
     }
@@ -107,6 +111,10 @@ public class NoteRepository{
 
     public void save(Note note){
         new SaveNoteAsyncTask(noteDao).execute(note);
+    }
+
+    public LiveData<List<Note>> getPinnedNotes() {
+        return noteDao.updatePinStatus();
     }
 
     private static class SaveNoteAsyncTask extends AsyncTask<Note, Void, Void>{

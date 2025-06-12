@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton sigment,addNoteButton,razdel;
     private SearchView searchView;
     private ActionMode actionMode;
-    private int selectedNotePosition = -1;
 
 
 
@@ -237,7 +236,9 @@ public class MainActivity extends AppCompatActivity {
                 mode.finish();
                 return true;
             } else if (id == R.id.action_archive) {
-                arhiveted(selectedNotePosition);
+                Toast.makeText(context,"В доработке", Toast.LENGTH_SHORT).show();
+            } else if (id == R.id.pin) {
+                noteViewModel.PinStatus();
                 mode.finish();
                 return true;
             }
@@ -268,19 +269,6 @@ public class MainActivity extends AppCompatActivity {
     private void updateNotesCount(int count) {
         countNotes.setText(getResources().getQuantityString(R.plurals.note_count, count, count));
     }
-
-    private void arhiveted(int position){
-        if (position < 0 || position >= adapter.getItemCount()) return;
-
-        Note note = adapter.getNoteAt(position);
-        note.setDeleted(true);
-
-        AsyncTask.execute(() -> {
-            NoteDatabase db = NoteDatabase.getInstance(getApplicationContext());
-            noteViewModel.update(note);
-        });
-    }
-
 
 
     // notify menu

@@ -21,17 +21,20 @@ public class Note implements Parcelable {
     private String content;
     private long createTime;
     private String folderPath;
+
+    @ColumnInfo(name = "isPinned")
+    private boolean isPinned;
     private boolean isDeleted;
 
-
     // Конструктор
-    public Note(String title, String content, long createTime, String folderPath, int id, boolean isDeleted) {
+    public Note(String title, String content, long createTime, String folderPath, int id, boolean isDeleted, boolean isPinned) {
         this.title = title;
         this.content = content;
         this.createTime = createTime;
         this.folderPath = folderPath;
         this.isDeleted = isDeleted;
         this.id = id;
+        this.isPinned = isPinned;
     }
 
     @Ignore
@@ -41,6 +44,7 @@ public class Note implements Parcelable {
         this.createTime = System.currentTimeMillis();
         this.folderPath = null;
         this.isDeleted = false;
+        this.isPinned = false;
     }
 
 
@@ -59,6 +63,8 @@ public class Note implements Parcelable {
         content = in.readString();
         createTime = in.readLong();
         folderPath = in.readString();
+        isPinned = in.readByte() != 0;
+        isDeleted = in.readByte() != 0;
     }
 
     // Creating instances via Parcelable.Creator
@@ -114,6 +120,13 @@ public class Note implements Parcelable {
     public String getFolderPath() {
         return folderPath;
     }
+    public boolean isPinned(){
+        return isPinned;
+    }
+
+    public void setPinned(boolean pinned){
+        this.isPinned = pinned;
+    }
 
 
     // Realez Parcelable
@@ -137,5 +150,8 @@ public class Note implements Parcelable {
         dest.writeString(content);
         dest.writeLong(createTime);
         dest.writeString(folderPath != null ? folderPath : "");
+        dest.writeByte((byte) (isPinned ? 1 : 0));
+        dest.writeByte((byte) (isDeleted ? 1 : 0));
+
     }
 }

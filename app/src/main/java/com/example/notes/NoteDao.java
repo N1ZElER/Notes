@@ -34,5 +34,12 @@ public interface NoteDao {
 
     @Delete
     void deleteNotes(List<Note> notes);
+
+    @Query("SELECT * FROM notes WHERE isPinned = 1")
+    LiveData<List<Note>> updatePinStatus();
+
+    @Query("SELECT * FROM notes WHERE isDeleted = 0 ORDER BY isPinned DESC, createTime DESC")
+    LiveData<List<Note>> getAllNotesPinned();
+
 }
 

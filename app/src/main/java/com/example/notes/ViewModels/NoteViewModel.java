@@ -17,7 +17,9 @@ import java.util.List;
 public class NoteViewModel extends AndroidViewModel {
     private NoteRepository repository;
     private MutableLiveData<List<Note>> notes = new MutableLiveData<>();
+    private final LiveData<List<Note>> pinnedNotes;
     private LiveData<List<Note>> allNotes;
+    private final MutableLiveData<List<Note>> pinStatus = new MutableLiveData<>();
     private final MutableLiveData<List<Note>> archivedNotes = new MutableLiveData<>(new ArrayList<>());
     private final MutableLiveData<List<Note>> selectedNotes = new MutableLiveData<>(new ArrayList<>());
     private final MutableLiveData<Boolean> selectionMode = new MutableLiveData<>(false);
@@ -25,6 +27,7 @@ public class NoteViewModel extends AndroidViewModel {
     public NoteViewModel(@NonNull Application application) {
         super(application);
         repository = new NoteRepository(application);
+        pinnedNotes = repository.getPinnedNotes();
         allNotes = repository.getAllNotes();
     }
 
@@ -98,10 +101,24 @@ public class NoteViewModel extends AndroidViewModel {
         }
     }
 
-
     public void startSelection() {
         selectedNotes.setValue(new ArrayList<>());
         selectionMode.setValue(true);
     }
 
+    public LiveData<List<Note>> getPinnedNotes() {
+        return repository.getAllNotes();
+    }
+
+
+    public void PinStatus(){
+        List<Note> selected = selectedNotes.getValue();
+        if (selected != null && !selected.isEmpty()) {
+            for(Note note : selected){
+                note.setPinned(!note.isPinned());
+                repository.update(note);
+            }
+            clearSelection();
+        }
+    }
 }

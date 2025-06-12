@@ -27,6 +27,7 @@ import com.example.notes.R;
 import com.example.notes.ViewModels.NoteViewModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> {
@@ -66,6 +67,14 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         holder.titleTextView.setText(note.getTitle());
         holder.contentTextView.setText(note.getContent());
         holder.noteDateTextView.setText(note.getFormattedCreateTime());
+
+
+
+        if(note.isPinned()){
+            holder.pinnedIcon.setVisibility(View.VISIBLE);
+        }else{
+            holder.pinnedIcon.setVisibility(View.GONE);
+        }
 
 
 
@@ -131,6 +140,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
     public void setNotes(List<Note> notes) {
         if (notes != null) {
+            Collections.sort(notes, (n1, n2) -> Boolean.compare(!n1.isPinned(), !n2.isPinned()));
             this.notes = new ArrayList<>(notes);
             this.filteredNotes = new ArrayList<>(notes);
         } else {
