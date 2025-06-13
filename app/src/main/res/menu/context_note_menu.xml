@@ -16,4 +16,13 @@
         android:title="@string/pinneding"
         android:icon="@drawable/baseline_push_pin_24"
         app:showAsAction="ifRoom" />
+
+
+    <item
+        android:id="@+id/notification"
+        android:title="@string/notifycate"
+        android:icon="@drawable/baseline_circle_notifications_24"
+        app:showAsAction="ifRoom" />
+
+
 </menu>

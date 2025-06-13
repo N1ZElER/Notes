@@ -79,6 +79,8 @@
     <string name="themes_system">Follow system</string>
     <string name="notifycaton_delete">Note is deleted</string>
 
+    <string name="notifycate">Notification</string>
+
 
     <string-array name="themes_array">
         <item>Light</item>

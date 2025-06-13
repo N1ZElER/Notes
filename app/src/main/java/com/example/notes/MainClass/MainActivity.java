@@ -241,6 +241,10 @@ public class MainActivity extends AppCompatActivity {
                 noteViewModel.PinStatus();
                 mode.finish();
                 return true;
+            } else if (id == R.id.notification) {
+                Toast.makeText(context,"В доработке", Toast.LENGTH_SHORT).show();
+                mode.finish();
+                return true;
             }
             return false;
         }

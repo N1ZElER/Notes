@@ -19,7 +19,6 @@ public class NoteViewModel extends AndroidViewModel {
     private MutableLiveData<List<Note>> notes = new MutableLiveData<>();
     private final LiveData<List<Note>> pinnedNotes;
     private LiveData<List<Note>> allNotes;
-    private final MutableLiveData<List<Note>> pinStatus = new MutableLiveData<>();
     private final MutableLiveData<List<Note>> archivedNotes = new MutableLiveData<>(new ArrayList<>());
     private final MutableLiveData<List<Note>> selectedNotes = new MutableLiveData<>(new ArrayList<>());
     private final MutableLiveData<Boolean> selectionMode = new MutableLiveData<>(false);

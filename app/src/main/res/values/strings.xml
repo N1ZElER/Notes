@@ -61,7 +61,6 @@
     <string name="notifycaton_delete">Заметка удалена</string>
 
 
-
     <string name="restore">Восстановить</string>
 
 
@@ -83,6 +82,8 @@
     <string name="current_themes">Текущая тема</string>
     <string name="themess">Тема</string>
 
+
+    <string name="notifycate">Уведомления</string>
 
     <string-array name="themes_array">
         <item>Светлая</item>
