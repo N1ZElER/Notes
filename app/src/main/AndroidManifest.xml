@@ -26,7 +26,7 @@
             android:name=".ViewModels.SettingsViewModel"
             android:exported="false" />
         <activity
-            android:name=".LocaleHelper"
+            android:name=".Class.LocaleHelper"
             android:exported="false" />
         <activity
             android:name=".Class.SpravkaAndOzevs"
