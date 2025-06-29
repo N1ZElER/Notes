@@ -1,4 +1,4 @@
-package com.example.notes.Class;
+package com.example.notes.MainClass;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -8,15 +8,12 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.notes.MainClass.CreateNote;
-import com.example.notes.MainClass.MainActivity;
 import com.example.notes.Note;
 import com.example.notes.R;
 import com.example.notes.ViewModels.EditNoteViewModel;
 
 public class EditNotesAcitivty extends AppCompatActivity {
     public static final String EXTRA_NOTE_ID = "note_id";
-
     private EditText titleEditText,contentEditText;
     private EditNoteViewModel viewModel;
     private Note currentNote;

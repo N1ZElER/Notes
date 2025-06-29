@@ -1,16 +1,12 @@
 package com.example.notes.MainClass;
 
-import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -19,7 +15,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -28,22 +23,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.notes.Class.Arhive;
 import com.example.notes.Class.Delete;
-import com.example.notes.Class.EditNotesAcitivty;
-import com.example.notes.Class.FileActivity;
-import com.example.notes.Class.MyApplication;
-import com.example.notes.LocaleHelper;
 import com.example.notes.Note;
 import com.example.notes.Adapters.NoteAdapter;
-import com.example.notes.NoteDatabase;
 import com.example.notes.R;
 import com.example.notes.Class.Settings;
 import com.example.notes.Class.SpravkaAndOzevs;
 import com.example.notes.ViewModels.NoteViewModel;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private NoteViewModel noteViewModel;

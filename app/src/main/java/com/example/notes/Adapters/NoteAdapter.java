@@ -1,28 +1,20 @@
 package com.example.notes.Adapters;
 
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.AsyncTask;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.notes.Class.EditNotesAcitivty;
+import com.example.notes.MainClass.EditNotesAcitivty;
 import com.example.notes.Note;
-import com.example.notes.NoteDatabase;
 import com.example.notes.R;
 import com.example.notes.ViewModels.NoteViewModel;
 

@@ -34,7 +34,6 @@ public class Settings extends AppCompatActivity {
     private String[] languageCodes = {"en", "ru",};
     private String[] ThemeCodes = {"day", "night", "system"};
     private ImageButton sigment2;
-    private Toolbar toolbar;
     private NavigationView navigationView;
     private LinearLayout languageLayout, themeLayout;
     private SettingsViewModel viewModel;
@@ -53,7 +52,6 @@ public class Settings extends AppCompatActivity {
         drawer_layout = findViewById(R.id.drawer_layout);
         languageLayout = findViewById(R.id.languageLayout);
         themeLayout = findViewById(R.id.themeLayout);
-        toolbar = findViewById(R.id.toolbar);
 
 
 

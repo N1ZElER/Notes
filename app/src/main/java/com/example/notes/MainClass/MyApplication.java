@@ -1,19 +1,12 @@
-package com.example.notes.Class;
-
-import static android.content.Intent.getIntent;
+package com.example.notes.MainClass;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
-import com.example.notes.Adapters.NoteAdapter;
 import com.example.notes.LocaleHelper;
-import com.example.notes.MainClass.MainActivity;
-
-import java.util.ArrayList;
 
 public class MyApplication extends Application {
 

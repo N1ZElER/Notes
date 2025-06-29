@@ -85,10 +85,25 @@
 
     <string name="notifycate">Уведомления</string>
 
+    <string name="nofication">Напоминания</string>
+
+
+    <string name="morning">утром</string>
+    <string name="day">днем</string>
+    <string name="night">вечером</string>
+
+
+    <string name="shared_access">Совместный доступ</string>
+    <string name="Allow_shared_access">Разрешить совместный доступ</string>
+
+
+
+
     <string-array name="themes_array">
         <item>Светлая</item>
         <item>Тёмная</item>
         <item>Как в системе</item>
     </string-array>
+
 
 </resources>

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
-        android:name=".Class.MyApplication"
+        android:name=".MainClass.MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -17,7 +17,7 @@
             android:name=".Adapters.FolderAdapter"
             android:exported="false" />
         <activity
-            android:name=".Class.MyApplication"
+            android:name=".MainClass.MyApplication"
             android:exported="false" />
         <activity
             android:name=".SimpleEvent.SingleLiveEvent"
@@ -53,7 +53,7 @@
             android:name=".MainClass.CreateNote"
             android:exported="false" />
         <activity
-            android:name=".Class.EditNotesAcitivty"
+            android:name=".MainClass.EditNotesAcitivty"
             android:exported="false" />
         <activity
             android:name=".ViewModels.EditNoteViewModel"

@@ -81,6 +81,17 @@
 
     <string name="notifycate">Notification</string>
 
+    <string name="nofication">Reminders</string>
+
+    <string name="morning">Morning</string>
+    <string name="day">Day</string>
+    <string name="night">Night</string>
+
+    <string name="shared_access">Shared access</string>
+
+    <string name="Allow_shared_access">Allow shared access</string>
+
+
 
     <string-array name="themes_array">
         <item>Light</item>

@@ -105,10 +105,6 @@ public class NoteViewModel extends AndroidViewModel {
         selectionMode.setValue(true);
     }
 
-    public LiveData<List<Note>> getPinnedNotes() {
-        return repository.getAllNotes();
-    }
-
 
     public void PinStatus(){
         List<Note> selected = selectedNotes.getValue();
