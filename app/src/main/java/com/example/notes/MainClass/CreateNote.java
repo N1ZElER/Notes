@@ -1,7 +1,6 @@
 package com.example.notes.MainClass;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.EditText;

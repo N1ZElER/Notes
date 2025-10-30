@@ -6,19 +6,18 @@ import android.os.Bundle;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.notes.Note;
 import com.example.notes.R;
-import com.example.notes.ViewModels.EditNoteViewModel2;
+import com.example.notes.ViewModels.EditNoteViewModel3;
 
 public class EditNotesAcitivty extends AppCompatActivity {
     public static final String EXTRA_NOTE_ID = "note_id";
 
     private EditText titleEditText,contentEditText;
 
-    private EditNoteViewModel2 viewModel;
+    private EditNoteViewModel3 viewModel;
     private Note currentNote;
 
     @Override
@@ -39,7 +38,7 @@ public class EditNotesAcitivty extends AppCompatActivity {
 
 
 
-        viewModel = new ViewModelProvider(this).get(EditNoteViewModel2.class);
+        viewModel = new ViewModelProvider(this).get(EditNoteViewModel3.class);
 
         int noteId = getIntent().getIntExtra(EXTRA_NOTE_ID, -1);
         if (noteId != -1) {
@@ -74,7 +73,6 @@ public class EditNotesAcitivty extends AppCompatActivity {
             finish();
         });
     }
-
 
 
     @Override

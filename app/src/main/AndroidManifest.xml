@@ -56,7 +56,7 @@
             android:name=".MainClass.EditNotesAcitivty"
             android:exported="false" />
         <activity
-            android:name=".ViewModels.EditNoteViewModel2"
+            android:name=".ViewModels.NoteViewModel"
             android:exported="false" />
         <activity
             android:name=".Migration.Migration_1_2"

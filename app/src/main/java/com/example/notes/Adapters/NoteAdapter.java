@@ -35,7 +35,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
 
 
-    public NoteAdapter(List<Note> notes,NoteViewModel noteViewModel) {
+    public NoteAdapter(List<Note> notes, NoteViewModel noteViewModel) {
         this.notes = notes;
         this.filteredNotes = new ArrayList<>(notes);
         this.noteViewModel = noteViewModel;

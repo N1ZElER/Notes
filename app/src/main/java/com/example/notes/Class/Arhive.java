@@ -9,11 +9,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,12 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.notes.Adapters.NoteAdapter;
 import com.example.notes.MainClass.MainActivity;
-import com.example.notes.Note;
 import com.example.notes.R;
 import com.example.notes.ViewModels.NoteViewModel;
 import com.google.android.material.navigation.NavigationView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -65,9 +58,9 @@ public class Arhive extends AppCompatActivity {
 
         NoteViewModel noteViewModel = new ViewModelProvider(this).get(NoteViewModel.class);
 
-        noteViewModel.getArchivedNotes().observe(this, notes -> {
-            adapter.setNotes(notes != null ? notes : new ArrayList<>());
-        });
+//        noteViewModel.getArchivedNotes().observe(this, notes -> {
+//            adapter.setNotes(notes != null ? notes : new ArrayList<>());
+//        });
 
 
 

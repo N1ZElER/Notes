@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.notes.Note
 import com.example.notes.Repostioriy.NoteRepository
 
-class EditNoteViewModel2(application: Application) : AndroidViewModel(application) {
+class NoteViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = NoteRepository(application)
 
@@ -16,6 +16,13 @@ class EditNoteViewModel2(application: Application) : AndroidViewModel(applicatio
 
     private val selectedNotes = MutableLiveData<MutableList<Note>>(mutableListOf())
     private val selectionMode = MutableLiveData(false)
+    private val allNotes: LiveData<List<Note>>
+
+
+
+    init {
+        allNotes = repository.getAllNotes()
+    }
 
     fun insert(note: Note) {
         repository.insert(note)
@@ -37,18 +44,16 @@ class EditNoteViewModel2(application: Application) : AndroidViewModel(applicatio
         clearSelection()
     }
 
-    fun loadNoteById(id: Int) {
-        repository.getNoteById(id).observeForever { note ->
-            note?.let {
-                _note.value = it
-            }
-        }
+
+
+    fun getNote(noteId: Int): LiveData<Note> {
+        return repository.getNoteById(noteId)
     }
 
-    fun saveNote(noteToSave: Note) {
-        _note.value = noteToSave
-        repository.update(noteToSave)
+    fun getAllNotes(): LiveData<List<Note>> {
+        return allNotes
     }
+
 
     fun toggleSelection(note: Note) {
         val current = selectedNotes.value ?: mutableListOf()
