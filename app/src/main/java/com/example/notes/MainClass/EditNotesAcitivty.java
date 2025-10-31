@@ -10,14 +10,14 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.notes.Note;
 import com.example.notes.R;
-import com.example.notes.ViewModels.EditNoteViewModel3;
+import com.example.notes.ViewModels.EditViewModel;
 
 public class EditNotesAcitivty extends AppCompatActivity {
     public static final String EXTRA_NOTE_ID = "note_id";
 
     private EditText titleEditText,contentEditText;
 
-    private EditNoteViewModel3 viewModel;
+    private EditViewModel viewModel;
     private Note currentNote;
 
     @Override
@@ -38,7 +38,7 @@ public class EditNotesAcitivty extends AppCompatActivity {
 
 
 
-        viewModel = new ViewModelProvider(this).get(EditNoteViewModel3.class);
+        viewModel = new ViewModelProvider(this).get(EditViewModel.class);
 
         int noteId = getIntent().getIntExtra(EXTRA_NOTE_ID, -1);
         if (noteId != -1) {

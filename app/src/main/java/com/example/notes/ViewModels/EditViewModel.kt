@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import com.example.notes.Note
 import com.example.notes.Repostioriy.NoteRepository
 
-class EditNoteViewModel3(application: Application) : AndroidViewModel(application) {
+class EditViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = NoteRepository(application)
     private var note: LiveData<Note>? = null
