@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="16dp"
+    android:layout_marginBottom="5dp"
     android:background="@drawable/routed_background3"
     android:gravity="center_vertical">
 
@@ -13,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:elevation="4dp"
+        android:padding="5dp"
         android:orientation="vertical">
 
         <TextView
@@ -99,6 +101,6 @@
             android:textColor="?attr/colorSurface"
             android:textSize="14sp"
             android:gravity="end"
-            android:text="01 Jan 2025, 12:00" />
+            android:text="Дата создания" />
     </LinearLayout>
 </LinearLayout>

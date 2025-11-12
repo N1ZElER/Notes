@@ -36,6 +36,7 @@
     <string name="Delete">Удалить</string>
     <string name="Copy">Скопировать</string>
     <string name="Send">Отправить</string>
+    <string name="InProgress">В разработке</string>
 
 
     <!-- Поиск -->

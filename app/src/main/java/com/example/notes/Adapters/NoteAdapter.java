@@ -13,7 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.notes.MainClass.EditNotesAcitivty;
+import com.example.notes.MainClass.EditNotesActivity;
 import com.example.notes.Note;
 import com.example.notes.R;
 import com.example.notes.ViewModels.NoteViewModel;
@@ -82,6 +82,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             holder.titleTextView.setVisibility(View.VISIBLE);
             holder.contentTextView.setVisibility(View.VISIBLE);
             holder.noteDateTextView.setVisibility(View.VISIBLE);
+            holder.noteDetailsTextView.setVisibility(View.VISIBLE);
         }
 
 
@@ -109,8 +110,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
                     notifyDataSetChanged();
                 }
             } else {
-                Intent intent = new Intent(v.getContext(), EditNotesAcitivty.class);
-                intent.putExtra(EditNotesAcitivty.EXTRA_NOTE_ID, note.getId());
+                Intent intent = new Intent(v.getContext(), EditNotesActivity.class);
+                intent.putExtra(EditNotesActivity.EXTRA_NOTE_ID, note.getId());
                 v.getContext().startActivity(intent);
             }
         });
@@ -190,19 +191,19 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         private TextView noteDetailsTextView;
         private ImageView pinnedIcon;
         private TextView noteDateTextView;
-        private LinearLayout noteRoot;
-        private CheckBox box;
+//        private LinearLayout noteRoot;
+//        private CheckBox box;
 
 
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
-            noteRoot = itemView.findViewById(R.id.noteRoot);
+//            noteRoot = itemView.findViewById(R.id.noteRoot);
             titleTextView = itemView.findViewById(R.id.noteTitleTextView);
             contentTextView = itemView.findViewById(R.id.noteContentTextView);
             noteDateTextView = itemView.findViewById(R.id.noteDateTextView);
             pinnedIcon = itemView.findViewById(R.id.pinnedIcon);
             noteDetailsTextView = itemView.findViewById(R.id.noteDetailsTextView);
-            box = itemView.findViewById(R.id.box);
+//            box = itemView.findViewById(R.id.box);
         }
     }
 }

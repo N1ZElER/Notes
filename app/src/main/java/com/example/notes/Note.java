@@ -26,7 +26,7 @@ public class Note implements Parcelable {
     private boolean isPinned;
     private boolean isDeleted;
 
-    // Конструктор
+    // Constructor
     public Note(String title, String content, long createTime, String folderPath, int id, boolean isDeleted, boolean isPinned) {
         this.title = title;
         this.content = content;

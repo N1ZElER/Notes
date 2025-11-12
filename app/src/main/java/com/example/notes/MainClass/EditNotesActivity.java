@@ -12,7 +12,7 @@ import com.example.notes.Note;
 import com.example.notes.R;
 import com.example.notes.ViewModels.EditViewModel;
 
-public class EditNotesAcitivty extends AppCompatActivity {
+public class EditNotesActivity extends AppCompatActivity {
     public static final String EXTRA_NOTE_ID = "note_id";
 
     private EditText titleEditText,contentEditText;
@@ -68,7 +68,7 @@ public class EditNotesAcitivty extends AppCompatActivity {
         }
 
         AsyncTask.execute(() -> {
-            Intent intent = new Intent(EditNotesAcitivty.this, MainActivity.class);
+            Intent intent = new Intent(EditNotesActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
         });

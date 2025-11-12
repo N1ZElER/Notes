@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, SpravkaAndOzevs.class);
                 startActivity(intent);
             } else if (id == R.id.nav_folder) {
-                Toast.makeText(context,"В Разработке",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,R.string.InProgress,Toast.LENGTH_SHORT).show();
             } else if (id == R.id.nav_arhive) {
                Intent intent = new Intent(MainActivity.this,Arhive.class);
                startActivity(intent);
@@ -224,13 +224,13 @@ public class MainActivity extends AppCompatActivity {
                 mode.finish();
                 return true;
             } else if (id == R.id.action_archive) {
-                Toast.makeText(context,"В доработке", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,R.string.InProgress, Toast.LENGTH_SHORT).show();
             } else if (id == R.id.pin) {
                 noteViewModel.PinStatus();
                 mode.finish();
                 return true;
             } else if (id == R.id.notification) {
-                Toast.makeText(context,"В доработке", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,R.string.InProgress, Toast.LENGTH_SHORT).show();
                 mode.finish();
                 return true;
             }

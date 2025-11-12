@@ -76,7 +76,7 @@ public class Arhive extends AppCompatActivity {
                 Intent intent = new Intent(Arhive.this, SpravkaAndOzevs.class);
                 startActivity(intent);
             } else if (id == R.id.nav_folder) {
-                Toast.makeText(context,"В Разработке",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,R.string.InProgress,Toast.LENGTH_SHORT).show();
             } else if (id == R.id.nav_arhive) {
                 drawerLayout.closeDrawers();
             } else if (id == R.id.nav_dell) {

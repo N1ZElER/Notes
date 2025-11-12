@@ -47,9 +47,9 @@ public class NoteRepository{
         return noteDao.getNoteById(id);
     }
 
-    public LiveData<List<Note>> getAllNotesPinned(){
-        return noteDao.getAllNotesPinned();
-    }
+//    public LiveData<List<Note>> getAllNotesPinned(){
+//        return noteDao.getAllNotesPinned();
+//    }
 
     public void deleteNotes(List<Note> notes) {
         Executors.newSingleThreadExecutor().execute(() -> noteDao.deleteNotes(notes));

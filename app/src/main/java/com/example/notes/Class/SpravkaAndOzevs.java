@@ -49,7 +49,7 @@ public class SpravkaAndOzevs extends AppCompatActivity {
             } else if (id == R.id.nav_ozevs) {
                 drawerLayout.closeDrawers();
             } else if (id == R.id.nav_folder) {
-                Toast.makeText(this,"В Разработке", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,R.string.InProgress, Toast.LENGTH_SHORT).show();
             } else if (id == R.id.nav_arhive) {
                 Intent intent = new Intent(SpravkaAndOzevs.this,Arhive.class);
                 startActivity(intent);

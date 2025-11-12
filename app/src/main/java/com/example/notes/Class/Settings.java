@@ -113,7 +113,7 @@ public class Settings extends AppCompatActivity {
                 Intent intent = new Intent(Settings.this, SpravkaAndOzevs.class);
                 startActivity(intent);
             } else if (id == R.id.nav_folder) {
-                Toast.makeText(this,"В Разработке", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,R.string.InProgress, Toast.LENGTH_SHORT).show();
             } else if (id == R.id.nav_arhive) {
                 Intent intent = new Intent(Settings.this,Arhive.class);
                 startActivity(intent);
