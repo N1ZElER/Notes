@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?attr/colorBackground"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="20dp"
+        android:gravity="end">
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/noteTitle"
+        android:layout_width="match_parent"
+        android:textCursorDrawable="@drawable/cursor_color"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textColor="?attr/editTextColor"
+        android:textStyle="bold"
+        android:background="?attr/colorBackground"
+        android:inputType="text"
+        android:hint="@string/nav_title"
+        android:maxLines="1" />
+
+
+    <EditText
+        android:id="@+id/noteContent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:textCursorDrawable="@drawable/cursor_color"
+        android:layout_weight="1"
+        android:textColor="?attr/editTextColor"
+        android:hint="@string/nav_text"
+        android:background="?attr/colorBackground"
+        android:fontFamily="sans-serif"
+        android:gravity="top"
+
+        android:overScrollMode="always"
+        android:scrollbars="vertical"
+        android:textSize="18sp" />
+
+
+
+    <!--    <Button-->
+<!--        android:id="@+id/saveNoteButton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Сохранить"-->
+<!--        android:textAllCaps="false"-->
+<!--        android:layout_gravity="center_horizontal"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:textColor="@android:color/white"/>-->
+
+</LinearLayout>

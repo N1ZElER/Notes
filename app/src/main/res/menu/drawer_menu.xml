@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:title="@string/app_name"
+        android:icon="@drawable/baseline_note_add_24"
+        android:checkable="true"/>
+
+    <item
+        android:id="@+id/nav_settings"
+        android:title="@string/nav_settings"
+        android:icon="@drawable/baseline_settings_24"
+        android:checkable="true" />
+
+    <item
+        android:id="@+id/nav_arhive"
+        android:title="@string/nav_archive"
+        android:icon="@drawable/baseline_archive_24"
+        android:checkable="true"
+        />
+
+
+    <item
+        android:id="@+id/nav_folder"
+        android:title="@string/nav_folder"
+        android:icon="@drawable/baseline_folder_copy_24"
+        android:checkable="true"/>
+
+
+    <item
+        android:id="@+id/nav_dell"
+        android:title="@string/recently_deleted"
+        android:icon="@drawable/baseline_auto_delete_24"
+        android:checkable="true"/>
+
+    <item
+        android:id="@+id/nav_ozevs"
+        android:title="@string/nav_othevs"
+        android:icon="@drawable/baseline_question_mark_24"
+        android:checkable="true"/>
+</menu>
+

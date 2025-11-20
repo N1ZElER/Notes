@@ -1,0 +1,120 @@
+<resources>
+    <!-- Общие строки -->
+    <string name="app_name">Заметки</string>
+
+    <!-- Сообщения -->
+    <string name="coming_soon">Скоро</string>
+    <string name="in_development">Пока в доработке</string>
+    <string name="note_updated_log">Обнаружено обновление заметки, перезагружаем список</string>
+    <string name="language">Язык</string>
+    <string name="other_folder">Другие папки</string>
+    <string name="main_folder">Основная папка</string>
+    <string name="recently_deleted">Недавно удалённые</string>
+    <string name="delete_info">Заметки доступны здесь в течение 30 дней. По истечении этого срока заметки будут удалены безвозвратно. Это может занять до 40 дней.</string>
+    <string name="otobr">Параметры отображения</string>
+
+    <!-- Навигация -->
+    <string name="nav_settings">Настройки</string>
+    <string name="nav_home">Главная</string>
+    <string name="nav_reviews">Отзывы</string>
+    <string name="nav_folder">Папки</string>
+    <string name="nav_archive">Архив</string>
+    <string name="nav_othevs">Справка и отзывы</string>
+
+
+    <!-- Контекстное меню -->
+    <string name="action_edit">Редактировать</string>
+    <string name="action_delete">Удалить</string>
+    <string name="nav_title">Название</string>
+    <string name="nav_text">Текст</string>
+    <string name="nav_title_change">Изменить название</string>
+    <string name="nav_text_change">Изменить контекст</string>
+    <string name="pinneding">Закрепить</string>
+    <string name="notify">Добавить напоминания</string>
+    <string name="ChangeColor">Изменить цвет</string>
+    <string name="GoToArhive">Поместить в архив</string>
+    <string name="Delete">Удалить</string>
+    <string name="Copy">Скопировать</string>
+    <string name="Send">Отправить</string>
+    <string name="InProgress">В разработке</string>
+
+
+    <!-- Поиск -->
+    <string name="search_hint">Поиск</string>
+
+    <!-- Подсчет заметок -->
+    <plurals name="note_count">
+        <item quantity="one">%d заметка</item>
+        <item quantity="few">%d заметки</item>
+        <item quantity="many">%d заметок</item>
+        <item quantity="other">%d заметок</item>
+    </plurals>
+
+    <!-- Кнопки -->
+    <string name="add_note">Добавить заметку</string>
+
+    <string name="delete_note">Удалить заметку?</string>
+    <string name="delete_context">Вы действительно хотите удалить эту заметку?</string>
+    <string name="nav_deistvie">Выберите действие</string>
+    <string name="nav_deistvie_info">Вы хотите удалить/восстановить заметку?</string>
+    <string name="nav_deistvie_info2">Вы действительно хотите удалить заметку?</string>
+    <string name="perm_delete">Заметка будет удалена без возвратно!</string>
+    <string name="notifycaton_delete">Заметка удалена</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="AllowAccess">Разрешить доступ другим участникам?</string>
+
+
+
+
+    <string name="restore">Восстановить</string>
+
+
+    <string name="note_count_hin1">Кол-во:</string>
+
+
+    <!--    языки-->
+    <string name="choose_language">Выберите язык</string>
+    <string name="language_russian">Русский</string>
+    <string name="language_english">Английский</string>
+    <string name="cancel">Отмена</string>
+    <string name="current_language">Текущий язык</string>
+
+    <!--    тема-->
+    <string name="choose_themes">Выберите тему</string>
+    <string name="themes_night">Темная</string>
+    <string name="themes_day">Светлая</string>
+    <string name="themes_system">Как в системе</string>
+    <string name="current_themes">Текущая тема</string>
+    <string name="themess">Тема</string>
+
+
+    <string name="notifycate">Уведомления</string>
+
+    <string name="nofication">Напоминания</string>
+
+
+    <string name="morning">утром</string>
+    <string name="day">днем</string>
+    <string name="night">вечером</string>
+
+
+    <string name="shared_access">Совместный доступ</string>
+    <string name="Allow_shared_access">Разрешить совместный доступ</string>
+
+
+
+
+    <string-array name="themes_array">
+        <item>Светлая</item>
+        <item>Тёмная</item>
+        <item>Как в системе</item>
+    </string-array>
+
+    <string-array name="acsess_array">
+        <item>Да</item>
+        <item>Нет</item>
+    </string-array>
+
+
+</resources>

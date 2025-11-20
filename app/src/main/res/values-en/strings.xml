@@ -1,0 +1,112 @@
+<resources>
+    <!-- Общие строки -->
+    <string name="app_name">Notes</string>
+
+    <!-- Сообщения -->
+    <string name="coming_soon">Coming soon</string>
+    <string name="in_development">Still in development</string>
+    <string name="note_updated_log">Note update detected, reloading list</string>
+    <string name="recently_deleted">Recently Deleted</string>
+    <string name="delete_info">Notes are available here for 30 days. After that, they will be permanently deleted. This may take up to 40 days.</string>
+
+    <string name="language">Language</string>
+    <string name="other_folder">Other Folder</string>
+
+    <string name="main_folder">Main Folder</string>
+
+    <!-- Навигация -->
+    <string name="nav_settings">Settings</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_reviews">Reviews</string>
+    <string name="nav_folder">Folders</string>
+    <string name="nav_archive">Archive</string>
+    <string name="otobr">Display Parameters</string>
+    <string name="themess">Themes</string>
+    <string name="nav_othevs">Help and Reviews</string>
+
+    <!-- Контекстное меню -->
+    <string name="action_edit">Edit</string>
+    <string name="action_delete">Delete</string>
+    <string name="nav_title">Title</string>
+    <string name="nav_text">Text</string>
+    <string name="nav_title_change">Change title</string>
+    <string name="nav_text_change">Change text</string>
+    <string name="pinneding">Pin</string>
+    <string name="notify">Add reminders</string>
+    <string name="ChangeColor">Change color</string>
+    <string name="GoToArhive">Archive it</string>
+    <string name="Delete">Delete</string>
+    <string name="Copy">Copy</string>
+    <string name="Send">Send</string>
+    <string name="InProgress">In development</string>
+
+
+
+
+
+    <!-- Поиск -->
+    <string name="search_hint">Search</string>
+
+    <!-- Подсчет заметок -->
+    <plurals name="note_count">
+        <item quantity="one">%d note</item>
+        <item quantity="few">%d notes</item>
+        <item quantity="many">%d notes</item>
+        <item quantity="other">%d notes</item>
+    </plurals>
+
+    <!-- Кнопки -->
+    <string name="add_note">Add note</string>
+    <string name="delete_note">Delete note?</string>
+    <string name="delete_context">Do you really want to delete this note?</string>
+    <string name="nav_deistvie">Select an action</string>
+    <string name="nav_deistvie_info">Do you want to delete/restore a note?</string>
+    <string name="restore">restore</string>
+    <string name="nav_deistvie_info2">Do you really want to delete the note?</string>
+    <string name="perm_delete">The note will be permanently deleted!</string>
+
+
+    <string name="note_count_hin1">Count notes:</string>
+
+
+    <string name="choose_language">Choose language</string>
+    <string name="language_russian">Russian</string>
+    <string name="language_english">English</string>
+    <string name="cancel">Cancel</string>
+    <string name="current_language">Current language</string>
+    <string name="current_themes">Current theme</string>
+    <string name="themes_day">Light</string>
+    <string name="themes_night">Night</string>
+    <string name="themes_system">Follow system</string>
+    <string name="notifycaton_delete">Note is deleted</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="AllowAccess">Allow access to other participants?</string>
+
+    <string name="notifycate">Notification</string>
+
+    <string name="nofication">Reminders</string>
+
+    <string name="morning">Morning</string>
+    <string name="day">Day</string>
+    <string name="night">Night</string>
+
+    <string name="shared_access">Shared access</string>
+
+    <string name="Allow_shared_access">Allow shared access</string>
+
+
+
+    <string-array name="themes_array">
+        <item>Light</item>
+        <item>Night</item>
+        <item>Follow system</item>
+    </string-array>
+
+    <string-array name="acsess_array">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+
+</resources>

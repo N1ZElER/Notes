@@ -1,0 +1,106 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp"
+    android:layout_marginBottom="5dp"
+    android:background="@drawable/routed_background3"
+    android:gravity="center_vertical">
+
+    <LinearLayout
+        android:id="@+id/noteRoot"
+        android:layout_width="263dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:elevation="4dp"
+        android:padding="5dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/noteTitleTextView"
+            android:maxLines="5"
+            android:ellipsize="end"
+            android:textColor="?attr/colorSurface"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Заголовок"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/noteContentTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="5"
+            android:textColor="?attr/colorSurface"
+            android:ellipsize="end"
+            android:hint="Заметка"
+            android:textSize="14sp" />
+
+
+        <LinearLayout
+            android:id="@+id/noteDetailsPanel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/noteDetailsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/colorSurface"
+            android:text="Отредактировать"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+
+<!--        <CheckBox-->
+<!--            android:id="@+id/box"-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="35dp"/>-->
+
+<!--        <ImageButton-->
+<!--            android:id="@+id/pin"-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="35dp"-->
+<!--            android:src="@drawable/baseline_push_pin_24" />-->
+
+        <ImageView
+            android:id="@+id/pinnedIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="4dp"
+            android:src="@drawable/ic_pin"
+            android:visibility="gone" />
+
+        <CheckBox
+            android:id="@+id/box"
+            android:layout_width="40dp"
+            android:layout_height="35dp"
+            android:visibility="gone"/>
+
+
+        <TextView
+            android:id="@+id/noteDateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="?attr/colorSurface"
+            android:textSize="14sp"
+            android:gravity="end"
+            android:text="Дата создания" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:name=".MainClass.MyApplication"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/notes"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/notes"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Notes"
+        tools:targetApi="31">
+        <activity
+            android:name=".Adapters.FolderAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".MainClass.MyApplication"
+            android:exported="false" />
+        <activity
+            android:name=".SimpleEvent.SingleLiveEvent"
+            android:exported="false" />
+        <activity
+            android:name=".ViewModels.SettingsViewModel"
+            android:exported="false" />
+        <activity
+            android:name=".Class.LocaleHelper"
+            android:exported="false" />
+        <activity
+            android:name=".Class.SpravkaAndOzevs"
+            android:exported="false" />
+        <activity
+            android:name=".Class.FileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Class.Arhive"
+            android:exported="false" />
+        <activity
+            android:name=".Class.Delete"
+            android:exported="false" />
+        <activity
+            android:name=".Class.Settings"
+            android:exported="false" />
+        <activity
+            android:name=".Class.ItemNoteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Adapters.NoteAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".MainClass.CreateNote"
+            android:exported="false" />
+        <activity
+            android:name=".MainClass.EditNotesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ViewModels.NoteViewModel"
+            android:exported="false" />
+        <activity
+            android:name=".Migration.Migration_1_2"
+            android:exported="false" />
+        <activity
+            android:name=".NoteDatabase"
+            android:exported="false" />
+        <activity
+            android:name=".NoteDao"
+            android:exported="false" />
+        <activity
+            android:name=".Note"
+            android:exported="false" />
+        <activity
+            android:name=".ViewModels.NoteViewModel"
+            android:exported="false" />
+        <activity
+            android:name=".Repostioriy.NoteRepository"
+            android:exported="false" />
+        <activity
+            android:name=".MainClass.MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
