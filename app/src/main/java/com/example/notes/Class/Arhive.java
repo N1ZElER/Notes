@@ -53,7 +53,7 @@ public class Arhive extends AppCompatActivity {
         noteViewModel = new ViewModelProvider(this).get(NoteViewModel.class);
 
         notesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new NoteAdapter(new ArrayList<>(), noteViewModel);
+        adapter = new NoteAdapter(new ArrayList<>(), noteViewModel,context);
         notesRecyclerView.setAdapter(adapter);
 
 

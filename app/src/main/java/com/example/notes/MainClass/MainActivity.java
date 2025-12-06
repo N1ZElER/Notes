@@ -1,13 +1,20 @@
 package com.example.notes.MainClass;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
@@ -19,6 +26,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,6 +41,7 @@ import com.example.notes.Class.SpravkaAndOzevs;
 import com.example.notes.ViewModels.NoteViewModel;
 import com.google.android.material.navigation.NavigationView;
 
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements NoteAdapter.SelectionModeListener {
@@ -50,13 +59,13 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.Selec
 
 
 
-    @SuppressLint("MissingInflatedId")
+
+    @SuppressLint({"MissingInflatedId", "ResourceAsColor"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = this;
-
 
         boolean isCollapsed = ((MyApplication) getApplication()).isCollapsed();
 
@@ -72,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.Selec
         razdel = findViewById(R.id.razdel);
         serchBar = findViewById(R.id.serchBar);
 
+
         noteViewModel = new ViewModelProvider(this).get(NoteViewModel.class);
 
 
@@ -80,10 +90,12 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.Selec
         notesRecyclerView.setHasFixedSize(true);
 
 
-        adapter = new NoteAdapter(new ArrayList<>(), noteViewModel);
+
+
+        adapter = new NoteAdapter(new ArrayList<>(), noteViewModel,this);
         adapter.setSelectionModeListener(this);
-        adapter.setCollapsed(isCollapsed);
         notesRecyclerView.setAdapter(adapter);
+        adapter.setItemTouchHelper(notesRecyclerView);
 
 
 
@@ -96,45 +108,10 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.Selec
             adapter.setNotes(notes != null ? notes : new ArrayList<>());
         });
 
-
         addNoteButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, CreateNote.class);
             startActivity(intent);
         });
-
-
-
-        ItemTouchHelper itemTouchHelperMove = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
-                ItemTouchHelper.UP | ItemTouchHelper.DOWN,ItemTouchHelper.LEFT | 0) { // Give permission to move up and down
-
-
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView,
-                                  @NonNull RecyclerView.ViewHolder viewHolder,
-                                  @NonNull RecyclerView.ViewHolder target) {
-                int fromPosition = viewHolder.getAdapterPosition();
-                int toPosition = target.getAdapterPosition();
-
-            adapter.moveItem(fromPosition, toPosition);
-                return true;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                int position = viewHolder.getAdapterPosition();
-
-                if (position >= 0 && position < adapter.getItemCount()) {
-                    showDeleteDialog(position);
-                }
-            }
-
-
-            @Override
-            public boolean isLongPressDragEnabled() {
-                return true;  // move to long click
-            }
-        });
-        itemTouchHelperMove.attachToRecyclerView(notesRecyclerView);
 
 
         navigationView.setNavigationItemSelectedListener(item -> {
@@ -189,6 +166,11 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.Selec
             adapter.setCollapsed(newState);
             adapter.notifyDataSetChanged();
 
+            if(newState){
+                notesRecyclerView.setLayoutManager(new GridLayoutManager(context, 2));
+            }else{
+                notesRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+            }
         });
 
         noteViewModel.getSelectedNotes().observe(this, selected -> {
@@ -208,6 +190,9 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.Selec
             adapter.setSelectionMode(mode);
         });
 
+
+        adapter.setCollapsed(isCollapsed);
+        adapter.notifyDataSetChanged();
     }
 
     private final ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
@@ -253,20 +238,6 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.Selec
             }
         }
     };
-
-    public void showDeleteDialog(int position) {
-        if (position == RecyclerView.NO_POSITION) {
-            return;
-        }
-        Note noteToDelete = adapter.getNoteAt(position);
-        new AlertDialog.Builder(context = this, R.style.AlertDialogFastStyling)
-                .setTitle(context.getString(R.string.delete_note))
-                .setMessage(context.getString(R.string.delete_context))
-                .setPositiveButton(context.getString(R.string.action_delete), (dialog, which) -> noteViewModel.delete(noteToDelete))
-                .setNegativeButton(context.getString(R.string.cancel), (dialog, which) -> adapter.notifyItemChanged(position))
-                .setCancelable(false)
-                .show();
-    }
 
     private void updateNotesCount(int count) {
         countNotes.setText(getResources().getQuantityString(R.plurals.note_count, count, count));

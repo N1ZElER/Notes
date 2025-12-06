@@ -3,6 +3,7 @@ package com.example.notes.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -11,6 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.notes.MainClass.EditNotesActivity;
@@ -28,18 +32,20 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     private List<Note> notes;
     private NoteViewModel noteViewModel;
     private List<Note> filteredNotes = new ArrayList<>();
+    private ItemTouchHelper itemTouchHelper;
     private OnNoteLongClickListener longClickListener;
     private boolean selectionMode = false;
     private SelectionModeListener selectionModeListener;
+    private Context context;
 
 
 
-    public NoteAdapter(List<Note> notes, NoteViewModel noteViewModel) {
+    public NoteAdapter(List<Note> notes, NoteViewModel noteViewModel, Context context) {
         this.notes = notes;
         this.filteredNotes = new ArrayList<>(notes);
         this.noteViewModel = noteViewModel;
+        this.context = context;
     }
-
 
     public void setSelectionMode(boolean isSelectionMode) {
         this.selectionMode = isSelectionMode;
@@ -47,6 +53,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     public void setSelectionModeListener(SelectionModeListener listener){
         this.selectionModeListener = listener;
     }
+
 
     @NonNull
     @Override
@@ -63,15 +70,12 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         holder.noteDateTextView.setText(note.getFormattedCreateTime());
 
 
-
-
         if(note.isPinned()){
             holder.pinnedIcon.setVisibility(View.VISIBLE);
+
         }else{
             holder.pinnedIcon.setVisibility(View.GONE);
         }
-
-
 
 
         if (isCollapsed) {
@@ -119,10 +123,50 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
                 v.getContext().startActivity(intent);
             }
         });
-
-
-
     }
+
+
+    public void setItemTouchHelper(RecyclerView recyclerView) {
+        ItemTouchHelper.Callback callback = new ItemTouchHelper.Callback() {
+            @Override
+            public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+                int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
+                return makeMovementFlags(dragFlags, 0);
+            }
+
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder,
+                                  @NonNull RecyclerView.ViewHolder target) {
+
+                int fromPos = viewHolder.getAdapterPosition();
+                int toPos = target.getAdapterPosition();
+
+                boolean fromPinned = isPinned(fromPos);
+                boolean toPinned = isPinned(toPos);
+
+                // We prohibit moving any note below or above the pinned one
+                if (!fromPinned && toPinned) return false;
+                if (fromPinned && !toPinned) return false;
+
+                moveItem(fromPos, toPos);
+                return true;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                // Swipe is disabled or removed
+            }
+
+            @Override
+            public boolean isLongPressDragEnabled() {
+                return true;
+            }
+        };
+
+        itemTouchHelper = new ItemTouchHelper(callback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+    }
+
 
     public interface OnNoteLongClickListener {
         void onNoteLongClick(int position);
@@ -168,10 +212,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         notifyDataSetChanged();
     }
 
-    public Note getNoteAt(int position) {
-        return notes.get(position);
-    }
-
     public void moveItem(int from, int to) {
         if (from < 0 || to < 0 || from >= filteredNotes.size() || to >= filteredNotes.size()) return;
 
@@ -179,6 +219,12 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         filteredNotes.add(to, movedNote);
         notifyItemMoved(from, to);
     }
+
+    public boolean isPinned(int position) {
+        if (position < 0 || position >= filteredNotes.size()) return false;
+        return filteredNotes.get(position).isPinned();
+    }
+
 
     public void setCollapsed(boolean collapsed) {
         this.isCollapsed = collapsed;
@@ -189,11 +235,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     }
 
 
-
-
     public static class NoteViewHolder extends RecyclerView.ViewHolder {
-
-
         private TextView titleTextView;
         private TextView contentTextView;
         private TextView noteDetailsTextView;
@@ -201,7 +243,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         private TextView noteDateTextView;
 //        private LinearLayout noteRoot;
 //        private CheckBox box;
-
 
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);

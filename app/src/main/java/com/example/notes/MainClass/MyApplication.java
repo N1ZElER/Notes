@@ -24,11 +24,11 @@ public class MyApplication extends Application {
         LocaleHelper.setLocale(this, LocaleHelper.getPersistedLanguage(this));
     }
 
-    private void applyTheme(){
+    private void applyTheme() {
         SharedPreferences preferences = getSharedPreferences("settings", MODE_PRIVATE);
         String theme = preferences.getString("themes", "system");
 
-        switch (theme){
+        switch (theme) {
             case "day":
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 break;
@@ -36,13 +36,6 @@ public class MyApplication extends Application {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 break;
             case "system":
-                int currentNightMode = getResources().getConfiguration().uiMode & android.content.res.Configuration.UI_MODE_NIGHT_MASK;
-                if (currentNightMode == android.content.res.Configuration.UI_MODE_NIGHT_YES) {
-                } else if (currentNightMode == android.content.res.Configuration.UI_MODE_NIGHT_NO) {
-                } else {
-                }
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                break;
             default:
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
                 break;

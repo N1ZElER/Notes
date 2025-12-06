@@ -14,6 +14,9 @@
         android:theme="@style/Theme.Notes"
         tools:targetApi="31">
         <activity
+            android:name=".Repostioriy.SpacingItemDecoration"
+            android:exported="false" />
+        <activity
             android:name=".Adapters.FolderAdapter"
             android:exported="false" />
         <activity
@@ -59,6 +62,9 @@
             android:name=".ViewModels.NoteViewModel"
             android:exported="false" />
         <activity
+            android:name=".ViewModels.NoteViewModel"
+            android:exported="false" />
+        <activity
             android:name=".Migration.Migration_1_2"
             android:exported="false" />
         <activity
@@ -71,9 +77,6 @@
             android:name=".Note"
             android:exported="false" />
         <activity
-            android:name=".ViewModels.NoteViewModel"
-            android:exported="false" />
-        <activity
             android:name=".Repostioriy.NoteRepository"
             android:exported="false" />
         <activity
@@ -81,6 +84,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
