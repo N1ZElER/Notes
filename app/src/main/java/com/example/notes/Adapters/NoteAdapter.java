@@ -23,8 +23,10 @@ import com.example.notes.R;
 import com.example.notes.ViewModels.NoteViewModel;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> {
 
@@ -67,7 +69,19 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         Note note = filteredNotes.get(position);
         holder.titleTextView.setText(note.getTitle());
         holder.contentTextView.setText(note.getContent());
-        holder.noteDateTextView.setText(note.getFormattedCreateTime());
+        holder.noteDateTextView.setText(formatDate(note.getCreateTime()));
+
+
+        if(Boolean.TRUE.equals(noteViewModel.isSelectionMode().getValue())){
+            List<Note> selectNote = noteViewModel.getSelectedNotes().getValue();
+            if(selectNote != null && selectNote.contains(note)){
+                holder.box.setVisibility(View.VISIBLE);
+            }else{
+                holder.box.setVisibility(View.GONE);
+            }
+        }else{
+            holder.box.setVisibility(View.GONE);
+        }
 
 
         if(note.isPinned()){
@@ -111,6 +125,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             if (Boolean.TRUE.equals(noteViewModel.isSelectionMode().getValue())) {
                 noteViewModel.toggleSelection(note);
                 notifyItemChanged(position);
+
 
                 List<Note> selected = noteViewModel.getSelectedNotes().getValue();
                 if (selected == null || selected.isEmpty()) {
@@ -174,6 +189,33 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
     public interface SelectionModeListener{
         void onSelectionModeStarted();
+    }
+
+
+    private String formatDate(long timeInMillis) {
+        Calendar noteCalendar = Calendar.getInstance();
+        noteCalendar.setTimeInMillis(timeInMillis);
+
+        Calendar currentCalendar = Calendar.getInstance();
+        Calendar yesterday = Calendar.getInstance();
+        yesterday.add(Calendar.DAY_OF_YEAR, -1);
+
+        if (noteCalendar.get(Calendar.YEAR) == currentCalendar.get(Calendar.YEAR) &&
+                noteCalendar.get(Calendar.DAY_OF_YEAR) == currentCalendar.get(Calendar.DAY_OF_YEAR)) {
+            return context.getString(R.string.ToDay);
+        } else {
+            if (noteCalendar.get(Calendar.YEAR) == yesterday.get(Calendar.YEAR) &&
+                    noteCalendar.get(Calendar.DAY_OF_YEAR) == yesterday.get(Calendar.DAY_OF_YEAR)) {
+                return context.getString(R.string.Yesterday);
+            } else {
+                return noteCalendar.get(Calendar.DAY_OF_MONTH) + " " + noteCalendar.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.getDefault());
+            }
+        }
+    }
+
+    @Override
+    public void onViewRecycled(@NonNull NoteViewHolder holder) {
+
     }
 
 
@@ -242,7 +284,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         private ImageView pinnedIcon;
         private TextView noteDateTextView;
 //        private LinearLayout noteRoot;
-//        private CheckBox box;
+        private TextView box;
 
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -252,7 +294,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             noteDateTextView = itemView.findViewById(R.id.noteDateTextView);
             pinnedIcon = itemView.findViewById(R.id.pinnedIcon);
             noteDetailsTextView = itemView.findViewById(R.id.noteDetailsTextView);
-//            box = itemView.findViewById(R.id.box);
+            box = itemView.findViewById(R.id.box);
         }
     }
 }

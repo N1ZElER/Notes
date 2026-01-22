@@ -58,8 +58,6 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.Selec
     private ActionMode actionMode;
 
 
-
-
     @SuppressLint({"MissingInflatedId", "ResourceAsColor"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +66,6 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.Selec
         context = this;
 
         boolean isCollapsed = ((MyApplication) getApplication()).isCollapsed();
-
-
 
         notesRecyclerView = findViewById(R.id.notesRecyclerView);
         countNotes = findViewById(R.id.countNotes);
@@ -84,21 +80,14 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.Selec
 
         noteViewModel = new ViewModelProvider(this).get(NoteViewModel.class);
 
-
-
         notesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         notesRecyclerView.setHasFixedSize(true);
-
-
 
 
         adapter = new NoteAdapter(new ArrayList<>(), noteViewModel,this);
         adapter.setSelectionModeListener(this);
         notesRecyclerView.setAdapter(adapter);
         adapter.setItemTouchHelper(notesRecyclerView);
-
-
-
 
 
         noteViewModel.getAllNotes().observe(this, notes -> {

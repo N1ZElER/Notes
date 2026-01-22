@@ -67,6 +67,14 @@
     <string name="no">Нет</string>
     <string name="cancel">Отмена</string>
     <string name="AllowAccess">Разрешить доступ другим участникам?</string>
+    <string name="redact">Отредактировать</string>
+    <string name="NameTag">Заголовок</string>
+    <string name="Note">Заметка</string>
+    <string name="Yesterday">Вчера</string>
+    <string name="ToDay">Сегодня</string>
+
+
+
 
     <!-- ========== СОВМЕСТНЫЙ ДОСТУП ========== -->
     <string name="shared_access">Совместный доступ</string>

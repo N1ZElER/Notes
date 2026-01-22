@@ -67,6 +67,12 @@
     <string name="no">No</string>
     <string name="cancel">Cancel</string>
     <string name="AllowAccess">Allow access to other participants?</string>
+    <string name="redact">Edit</string>
+    <string name="NameTag">Heading</string>
+    <string name="Note">Note</string>
+
+    <string name="Yesterday">Yesterday</string>
+    <string name="ToDay">Today</string>
 
     <!-- ========== SHARED ACCESS ========== -->
     <string name="shared_access">Shared access</string>

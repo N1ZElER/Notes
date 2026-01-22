@@ -24,7 +24,7 @@
             android:textColor="?attr/colorSurface"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Заголовок"
+            android:hint="@string/NameTag"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -36,7 +36,7 @@
             android:maxLines="5"
             android:textColor="?attr/colorSurface"
             android:ellipsize="end"
-            android:hint="Заметка"
+            android:hint="@string/Note"
             android:textSize="14sp" />
 
 
@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="?attr/colorSurface"
-            android:text="Отредактировать"
+            android:text="@string/redact"
             android:textSize="14sp" />
     </LinearLayout>
 
@@ -86,11 +86,20 @@
             android:src="@drawable/ic_pin"
             android:visibility="gone" />
 
-        <CheckBox
+<!--        <CheckBox-->
+<!--            android:id="@+id/box"-->
+<!--            android:layout_width="5dp"-->
+<!--            android:layout_height="5dp"-->
+<!--            android:visibility="gone" />-->
+
+        <TextView
             android:id="@+id/box"
-            android:layout_width="40dp"
-            android:layout_height="35dp"
-            android:visibility="gone"/>
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:visibility="visible"
+            android:text="."
+            android:textColor="@color/black"
+            />
 
 
         <TextView
