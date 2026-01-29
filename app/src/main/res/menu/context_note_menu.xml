@@ -3,13 +3,9 @@
     <item
         android:id="@+id/action_delete"
         android:title="@string/Delete"
-        android:icon="@drawable/baseline_auto_delete_24"
+        android:icon="@drawable/delete"
         app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/action_archive"
-        android:title="@string/nav_archive"
-        android:icon="@drawable/baseline_archive_24"
-        app:showAsAction="ifRoom" />
+
 
     <item
         android:id="@+id/pin"
@@ -17,6 +13,11 @@
         android:icon="@drawable/baseline_push_pin_24"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/action_archive"
+        android:title="@string/nav_archive"
+        android:icon="@drawable/baseline_archive_24"
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/notification"
