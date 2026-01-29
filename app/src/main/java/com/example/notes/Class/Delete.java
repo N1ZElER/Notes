@@ -63,14 +63,14 @@ public class Delete extends AppCompatActivity {
         sigment.setOnClickListener(v -> drawerLayout.openDrawer(navigationView));
     }
 
-    // обновления менюшки
+    // Update menu
     @Override
     protected void onResume() {
         super.onResume();
         updateCheckedItem();
     }
 
-    // обновления менюшки
+    // Update menu
     private void updateCheckedItem() {
         MenuItem item = navigationView.getMenu().findItem(getCheckedItemId());
         if (item != null) {
@@ -78,7 +78,7 @@ public class Delete extends AppCompatActivity {
         }
     }
 
-    // обновления менюшки
+    // Update menu
     private int getCheckedItemId() {
         String currentActivity = this.getClass().getSimpleName();
         switch (currentActivity) {

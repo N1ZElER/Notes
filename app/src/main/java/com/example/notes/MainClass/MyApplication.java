@@ -6,15 +6,17 @@ import android.content.SharedPreferences;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
-import com.example.notes.Class.LocaleHelper;
+import com.example.notes.Utils.LocaleHelper;
 
 public class MyApplication extends Application {
 
 //    private boolean isCollapsed = false;
 
     @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(LocaleHelper.setLocale(base, LocaleHelper.getPersistedLanguage(base)));
+    protected void attachBaseContext(Context newBase) {
+        String lang = LocaleHelper.getPersistedLanguage(newBase);
+        Context context = LocaleHelper.setLocale(newBase, lang);
+        super.attachBaseContext(context);
     }
 
     @Override

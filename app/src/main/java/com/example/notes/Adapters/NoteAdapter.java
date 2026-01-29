@@ -75,12 +75,15 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         if(Boolean.TRUE.equals(noteViewModel.isSelectionMode().getValue())){
             List<Note> selectNote = noteViewModel.getSelectedNotes().getValue();
             if(selectNote != null && selectNote.contains(note)){
-                holder.box.setVisibility(View.VISIBLE);
+//                holder.box.setVisibility(View.VISIBLE);
+                holder.itemView.setSelected(true);
             }else{
-                holder.box.setVisibility(View.GONE);
+//                holder.box.setVisibility(View.GONE);
+                holder.itemView.setSelected(false);
             }
         }else{
-            holder.box.setVisibility(View.GONE);
+//            holder.box.setVisibility(View.GONE);
+            holder.itemView.setSelected(false);
         }
 
 
@@ -284,7 +287,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         private ImageView pinnedIcon;
         private TextView noteDateTextView;
 //        private LinearLayout noteRoot;
-        private TextView box;
+//        private TextView box;
 
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -294,7 +297,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             noteDateTextView = itemView.findViewById(R.id.noteDateTextView);
             pinnedIcon = itemView.findViewById(R.id.pinnedIcon);
             noteDetailsTextView = itemView.findViewById(R.id.noteDetailsTextView);
-            box = itemView.findViewById(R.id.box);
+//            box = itemView.findViewById(R.id.box);
         }
     }
 }

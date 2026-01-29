@@ -14,6 +14,9 @@
         android:theme="@style/Theme.Notes"
         tools:targetApi="31">
         <activity
+            android:name=".Utils.BaseActivity"
+            android:exported="false" />
+        <activity
             android:name=".Repostioriy.SpacingItemDecoration"
             android:exported="false" />
         <activity
@@ -29,7 +32,7 @@
             android:name=".ViewModels.SettingsViewModel"
             android:exported="false" />
         <activity
-            android:name=".Class.LocaleHelper"
+            android:name=".Utils.LocaleHelper"
             android:exported="false" />
         <activity
             android:name=".Class.SpravkaAndOzevs"

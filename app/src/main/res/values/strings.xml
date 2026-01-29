@@ -74,8 +74,6 @@
     <string name="ToDay">Сегодня</string>
 
 
-
-
     <!-- ========== СОВМЕСТНЫЙ ДОСТУП ========== -->
     <string name="shared_access">Совместный доступ</string>
     <string name="Allow_shared_access">Разрешить совместный доступ</string>

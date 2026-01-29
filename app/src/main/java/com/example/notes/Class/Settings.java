@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.notes.MainClass.MainActivity;
 import com.example.notes.R;
 import com.example.notes.ViewModels.SettingsViewModel;
+import com.example.notes.Utils.LocaleHelper;
 import com.google.android.material.navigation.NavigationView;
 
 public class Settings extends AppCompatActivity {
@@ -63,10 +64,8 @@ public class Settings extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
 
 
-        viewModel.getLanguageLiveData().observe(this, lang ->{
-            LocaleHelper.setLocale(this,lang);
+        viewModel.getLanguageLiveData().observe(this, lang -> {
             recreate();
-
         });
 
 
@@ -196,7 +195,6 @@ public class Settings extends AppCompatActivity {
         builder.setTitle(getString(R.string.choose_language));
         builder.setItems(languages, (dialog, which) -> {
             viewModel.changeLanguage(this, languageCodes[which]);
-            recreate();
         });
         builder.setNegativeButton(getString(R.string.cancel), (dialog, which) -> {});
         builder.create().show();

@@ -1,50 +1,38 @@
 package com.example.notes.MainClass;
 
-import static androidx.core.util.TypedValueCompat.dpToPx;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.notes.Class.Arhive;
 import com.example.notes.Class.Delete;
-import com.example.notes.Note;
 import com.example.notes.Adapters.NoteAdapter;
 import com.example.notes.R;
 import com.example.notes.Class.Settings;
 import com.example.notes.Class.SpravkaAndOzevs;
 import com.example.notes.ViewModels.NoteViewModel;
+import com.example.notes.Utils.BaseActivity;
 import com.google.android.material.navigation.NavigationView;
 
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements NoteAdapter.SelectionModeListener {
+public class MainActivity extends BaseActivity implements NoteAdapter.SelectionModeListener {
     private NoteViewModel noteViewModel;
     private NoteAdapter adapter;
     private RelativeLayout serchBar;
@@ -58,12 +46,15 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.Selec
     private ActionMode actionMode;
 
 
+
+
     @SuppressLint({"MissingInflatedId", "ResourceAsColor"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = this;
+
 
         boolean isCollapsed = ((MyApplication) getApplication()).isCollapsed();
 
@@ -184,6 +175,9 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.Selec
         adapter.notifyDataSetChanged();
     }
 
+
+
+
     private final ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
@@ -238,6 +232,7 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.Selec
             serchBar.setVisibility(View.GONE);
         }
     }
+
 
     // Update menu
     @Override

@@ -92,14 +92,14 @@
 <!--            android:layout_height="5dp"-->
 <!--            android:visibility="gone" />-->
 
-        <TextView
-            android:id="@+id/box"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:visibility="visible"
-            android:text="."
-            android:textColor="@color/black"
-            />
+<!--        <TextView-->
+<!--            android:id="@+id/box"-->
+<!--            android:layout_width="15dp"-->
+<!--            android:layout_height="15dp"-->
+<!--            android:visibility="visible"-->
+<!--            android:text="."-->
+<!--            android:textColor="@color/black"-->
+<!--            />-->
 
 
         <TextView

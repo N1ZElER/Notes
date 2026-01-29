@@ -92,14 +92,14 @@ public class Arhive extends AppCompatActivity {
         sigment.setOnClickListener(v -> drawerLayout.openDrawer(navigationView));
     }
 
-    // notify menu
+    // Update menu
     @Override
     protected void onResume() {
         super.onResume();
         updateCheckedItem();
     }
 
-    // notify menu
+    // Update menu
     private void updateCheckedItem() {
         MenuItem item = navigationView.getMenu().findItem(getCheckedItemId());
         if (item != null) {
@@ -107,7 +107,7 @@ public class Arhive extends AppCompatActivity {
         }
     }
 
-    // notify menu
+    // Update menu
     private int getCheckedItemId() {
         String currentActivity = this.getClass().getSimpleName();
         switch (currentActivity) {
