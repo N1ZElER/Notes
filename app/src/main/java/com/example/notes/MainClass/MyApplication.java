@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
-import com.example.notes.Utils.LocaleHelper;
+import com.example.notes.Class.LocaleHelper;
 
 public class MyApplication extends Application {
 

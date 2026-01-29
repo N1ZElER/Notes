@@ -27,7 +27,6 @@ import com.example.notes.R;
 import com.example.notes.Class.Settings;
 import com.example.notes.Class.SpravkaAndOzevs;
 import com.example.notes.ViewModels.NoteViewModel;
-import com.example.notes.Utils.BaseActivity;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;

@@ -75,14 +75,11 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         if(Boolean.TRUE.equals(noteViewModel.isSelectionMode().getValue())){
             List<Note> selectNote = noteViewModel.getSelectedNotes().getValue();
             if(selectNote != null && selectNote.contains(note)){
-//                holder.box.setVisibility(View.VISIBLE);
                 holder.itemView.setSelected(true);
             }else{
-//                holder.box.setVisibility(View.GONE);
                 holder.itemView.setSelected(false);
             }
         }else{
-//            holder.box.setVisibility(View.GONE);
             holder.itemView.setSelected(false);
         }
 
@@ -108,7 +105,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             holder.noteDateTextView.setVisibility(View.VISIBLE);
             holder.noteDetailsTextView.setVisibility(View.VISIBLE);
         }
-
 
 
         holder.itemView.setOnLongClickListener(v -> {
@@ -142,7 +138,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             }
         });
     }
-
 
     public void setItemTouchHelper(RecyclerView recyclerView) {
         ItemTouchHelper.Callback callback = new ItemTouchHelper.Callback() {
@@ -185,7 +180,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
-
     public interface OnNoteLongClickListener {
         void onNoteLongClick(int position);
     }
@@ -193,7 +187,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     public interface SelectionModeListener{
         void onSelectionModeStarted();
     }
-
 
     private String formatDate(long timeInMillis) {
         Calendar noteCalendar = Calendar.getInstance();
@@ -220,7 +213,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     public void onViewRecycled(@NonNull NoteViewHolder holder) {
 
     }
-
 
 
     @Override
@@ -279,25 +271,20 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         return Math.round(dp * density);
     }
 
-
     public static class NoteViewHolder extends RecyclerView.ViewHolder {
         private TextView titleTextView;
         private TextView contentTextView;
         private TextView noteDetailsTextView;
         private ImageView pinnedIcon;
         private TextView noteDateTextView;
-//        private LinearLayout noteRoot;
-//        private TextView box;
 
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
-//            noteRoot = itemView.findViewById(R.id.noteRoot);
             titleTextView = itemView.findViewById(R.id.noteTitleTextView);
             contentTextView = itemView.findViewById(R.id.noteContentTextView);
             noteDateTextView = itemView.findViewById(R.id.noteDateTextView);
             pinnedIcon = itemView.findViewById(R.id.pinnedIcon);
             noteDetailsTextView = itemView.findViewById(R.id.noteDetailsTextView);
-//            box = itemView.findViewById(R.id.box);
         }
     }
 }

@@ -21,7 +21,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.notes.MainClass.MainActivity;
 import com.example.notes.R;
 import com.example.notes.ViewModels.SettingsViewModel;
-import com.example.notes.Utils.LocaleHelper;
 import com.google.android.material.navigation.NavigationView;
 
 public class Settings extends AppCompatActivity {

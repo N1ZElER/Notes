@@ -1,4 +1,4 @@
-package com.example.notes.Utils;
+package com.example.notes.Class;
 
 import android.content.Context;
 import android.content.res.Configuration;
